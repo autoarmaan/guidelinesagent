@@ -1,0 +1,3 @@
+Multiple clients are requesting clarity on our PHI protections, model governance, and data security practices.
+This channel is to organize our approach in one place and also hopefully create a compendium of Q&A that can be re-used.
+

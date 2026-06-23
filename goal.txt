@@ -1,0 +1,2 @@
+a chatbot that can answer questions based on company guidelines
+can cite locations/chunks where it got info from
