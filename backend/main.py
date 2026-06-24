@@ -1,6 +1,5 @@
 import json
 import os
-import subprocess
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException

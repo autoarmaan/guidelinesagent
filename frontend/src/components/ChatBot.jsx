@@ -57,7 +57,7 @@ function ChatBot({ apiUrl }) {
       <div className="messages">
         {messages.length === 0 && (
           <div className="empty-state">
-            <p>Upload and ingest guideline documents, then ask questions.</p>
+            <p>Ask questions about your organizational policies and guidelines.</p>
             <p>Example: "What is the data retention period for PHI data?"</p>
           </div>
         )}
