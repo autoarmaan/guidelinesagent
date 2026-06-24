@@ -1,9 +1,12 @@
 import json
 import os
+from urllib.parse import unquote
 
+from azure.storage.blob import ContainerClient
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 from pydantic import BaseModel
 
 _env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".env")
@@ -13,7 +16,7 @@ app = FastAPI(title="Guidelines Agent API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173", "http://localhost:5174"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -116,3 +119,53 @@ def _extract_answer(result: dict) -> str:
 @app.get("/api/health")
 async def health():
     return {"status": "ok", "mode": "ai-studio"}
+
+
+# --------------- Document / Blob endpoints ---------------
+
+def _get_container_client() -> ContainerClient:
+    conn_str = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
+    container = os.getenv("AZURE_STORAGE_CONTAINER", "guideline-documents")
+    if not conn_str:
+        raise HTTPException(
+            status_code=500,
+            detail="AZURE_STORAGE_CONNECTION_STRING not configured in .env",
+        )
+    return ContainerClient.from_connection_string(conn_str, container_name=container)
+
+
+@app.get("/api/documents")
+async def list_documents():
+    """List all PDF documents in the Azure Blob container."""
+    client = _get_container_client()
+    docs = []
+    for blob in client.list_blobs():
+        if blob.name.lower().endswith(".pdf"):
+            docs.append(
+                {
+                    "name": blob.name,
+                    "size": blob.size,
+                    "last_modified": blob.last_modified.isoformat() if blob.last_modified else None,
+                }
+            )
+    return docs
+
+
+@app.get("/api/documents/{name:path}")
+async def get_document(name: str):
+    """Return a PDF document from Azure Blob storage."""
+    name = unquote(name)
+    client = _get_container_client()
+    blob_client = client.get_blob_client(name)
+    try:
+        data = blob_client.download_blob().readall()
+    except Exception:
+        raise HTTPException(status_code=404, detail=f"Document not found: {name}")
+
+    # Use ASCII-safe filename for Content-Disposition header
+    safe_name = name.split("/")[-1].encode("ascii", "replace").decode("ascii")
+    return Response(
+        content=data,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'inline; filename="{safe_name}"'},
+    )

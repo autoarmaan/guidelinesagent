@@ -1,6 +1,7 @@
 import ChatBot from "./components/ChatBot";
+import DocumentViewer from "./components/DocumentViewer";
 
-const API_URL = "http://localhost:8000/api";
+const API_URL = "http://localhost:8001/api";
 
 function App() {
   return (
@@ -11,7 +12,14 @@ function App() {
         <span className="badge">Powered by AI Studio</span>
       </header>
 
-      <ChatBot apiUrl={API_URL} />
+      <div className="app-body">
+        <div className="panel panel-left">
+          <DocumentViewer apiUrl={API_URL} />
+        </div>
+        <div className="panel panel-right">
+          <ChatBot apiUrl={API_URL} />
+        </div>
+      </div>
     </div>
   );
 }
