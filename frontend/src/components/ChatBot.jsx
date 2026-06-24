@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 
 const SESSION_ID = crypto.randomUUID();
 
-function ChatBot({ apiUrl }) {
+function ChatBot({ apiUrl, onCitationClick }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -71,13 +71,19 @@ function ChatBot({ apiUrl }) {
               <details className="sources">
                 <summary>Sources ({msg.sources.length})</summary>
                 {msg.sources.map((s, j) => (
-                  <div key={j} className="source-chunk">
+                  <div
+                    key={j}
+                    className="source-chunk clickable"
+                    onClick={() => onCitationClick?.(s.source, s.page)}
+                  >
                     <div className="source-header">
-                      {s.source} &mdash; {s.path}
+                      {s.source.split("/").pop()}
+                      {s.page && <span className="source-page">Page {s.page}</span>}
+                      <span className="source-score">{Math.round(s.score * 100)}% match</span>
                     </div>
                     <div className="source-text">
-                      {s.text.substring(0, 300)}
-                      {s.text.length > 300 ? "..." : ""}
+                      {s.text.substring(0, 200)}
+                      {s.text.length > 200 ? "..." : ""}
                     </div>
                   </div>
                 ))}

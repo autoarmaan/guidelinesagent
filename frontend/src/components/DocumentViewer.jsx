@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
-function DocumentViewer({ apiUrl }) {
+function DocumentViewer({ apiUrl, navigateTo }) {
   const [documents, setDocuments] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [pdfUrl, setPdfUrl] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const prevNavRef = useRef(null);
 
   const fetchDocuments = async () => {
     setLoading(true);
@@ -16,6 +18,7 @@ function DocumentViewer({ apiUrl }) {
       setDocuments(data);
       if (data.length > 0 && !selected) {
         setSelected(data[0].name);
+        setPdfUrl(`${apiUrl}/documents/${encodeURIComponent(data[0].name)}`);
       }
     } catch (err) {
       setError(err.message);
@@ -27,16 +30,36 @@ function DocumentViewer({ apiUrl }) {
     fetchDocuments();
   }, []);
 
+  // Handle citation navigation from chatbot
+  useEffect(() => {
+    if (!navigateTo || navigateTo === prevNavRef.current) return;
+    prevNavRef.current = navigateTo;
+
+    const match = documents.find((d) => d.name === navigateTo.source)
+      || documents.find(
+        (d) => d.name.split("/").pop() === navigateTo.source.split("/").pop()
+      );
+
+    if (!match) return;
+
+    const base = `${apiUrl}/documents/${encodeURIComponent(match.name)}`;
+    const url = navigateTo.page ? `${base}#page=${navigateTo.page}` : base;
+
+    setSelected(match.name);
+    setPdfUrl(url);
+  }, [navigateTo, documents]);
+
+  const handleDocClick = (name) => {
+    setSelected(name);
+    setPdfUrl(`${apiUrl}/documents/${encodeURIComponent(name)}`);
+  };
+
   const formatSize = (bytes) => {
     if (!bytes) return "";
     if (bytes < 1024) return `${bytes} B`;
     if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   };
-
-  const pdfUrl = selected
-    ? `${apiUrl}/documents/${encodeURIComponent(selected)}`
-    : null;
 
   return (
     <div className="doc-viewer">
@@ -53,7 +76,7 @@ function DocumentViewer({ apiUrl }) {
             <li
               key={doc.name}
               className={`doc-item ${selected === doc.name ? "active" : ""}`}
-              onClick={() => setSelected(doc.name)}
+              onClick={() => handleDocClick(doc.name)}
               title={doc.name}
             >
               <span className="doc-name">{doc.name}</span>
@@ -67,7 +90,7 @@ function DocumentViewer({ apiUrl }) {
       </div>
       <div className="doc-preview">
         {pdfUrl ? (
-          <iframe src={pdfUrl} title={selected} />
+          <iframe src={pdfUrl} title={selected} key={pdfUrl} />
         ) : (
           <div className="doc-placeholder">Select a document to preview</div>
         )}

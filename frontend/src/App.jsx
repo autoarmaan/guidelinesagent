@@ -1,9 +1,16 @@
+import { useState } from "react";
 import ChatBot from "./components/ChatBot";
 import DocumentViewer from "./components/DocumentViewer";
 
 const API_URL = "http://localhost:8001/api";
 
 function App() {
+  const [navigateTo, setNavigateTo] = useState(null);
+
+  const handleCitationClick = (source, page) => {
+    setNavigateTo({ source, page });
+  };
+
   return (
     <div className="app">
       <header className="app-header">
@@ -14,10 +21,10 @@ function App() {
 
       <div className="app-body">
         <div className="panel panel-left">
-          <DocumentViewer apiUrl={API_URL} />
+          <DocumentViewer apiUrl={API_URL} navigateTo={navigateTo} />
         </div>
         <div className="panel panel-right">
-          <ChatBot apiUrl={API_URL} />
+          <ChatBot apiUrl={API_URL} onCitationClick={handleCitationClick} />
         </div>
       </div>
     </div>

@@ -80,11 +80,20 @@ async def chat(request: ChatRequest):
 
         result = exec_resp.json()
         answer = _extract_answer(result)
-        return ChatResponse(answer=answer)
+        sources = _extract_sources(result)
+        return ChatResponse(answer=answer, sources=sources)
 
 
 def _extract_answer(result: dict) -> str:
     """Extract the text answer from an AI Studio execution response."""
+    # Look for the last text part in new_messages (the agent's final answer)
+    for key in ("output", "result"):
+        if key in result and isinstance(result[key], dict):
+            for msg in reversed(result[key].get("new_messages", [])):
+                for part in reversed(msg.get("parts", [])):
+                    if part.get("part_kind") == "text":
+                        return part.get("content", "")
+
     # Direct content field
     if "content" in result:
         return result["content"]
@@ -114,6 +123,40 @@ def _extract_answer(result: dict) -> str:
 
     # Fallback: return the whole thing as JSON
     return json.dumps(result, indent=2)
+
+
+def _extract_sources(result: dict) -> list:
+    """Extract retrieved KC chunks from the workflow response for citations."""
+    sources = []
+    try:
+        # Chunks live under output.new_messages, not result.new_messages
+        output = result.get("output", result.get("result", {}))
+        if not isinstance(output, dict):
+            return sources
+        messages = output.get("new_messages", [])
+        for msg in messages:
+            for part in msg.get("parts", []):
+                if (
+                    part.get("part_kind") == "tool-return"
+                    and "Knowledge_Retrieval" in part.get("tool_name", "")
+                ):
+                    content = part.get("content", {})
+                    if isinstance(content, str):
+                        content = json.loads(content)
+                    docs = content.get("result", {}).get("retrieved_documents", [])
+                    for doc in docs:
+                        meta = doc.get("metadata", {})
+                        sources.append(
+                            {
+                                "source": meta.get("source", "Unknown"),
+                                "page": meta.get("page_number"),
+                                "text": doc.get("content", ""),
+                                "score": round(doc.get("score", 0), 3),
+                            }
+                        )
+    except (KeyError, TypeError, json.JSONDecodeError):
+        pass
+    return sources
 
 
 @app.get("/api/health")

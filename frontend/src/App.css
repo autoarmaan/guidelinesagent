@@ -191,11 +191,40 @@ body {
   color: #666;
 }
 
+.source-chunk.clickable {
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.source-chunk.clickable:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+}
+
 .source-header {
   font-weight: 600;
   color: #2563eb;
   font-size: 0.8em;
   margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.source-page {
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-weight: 500;
+}
+
+.source-score {
+  color: #888;
+  font-weight: 400;
+  font-size: 0.85em;
 }
 
 .source-text {
