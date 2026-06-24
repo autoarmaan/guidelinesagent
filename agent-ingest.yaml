@@ -1,0 +1,166 @@
+name: Guideline Ingestion Agent
+description: >
+  Agent that receives pre-parsed document chunks and stores them in the
+  vector store using the component tool (auto-resolves connection).
+version: 1.0.0
+category: knowledge-center
+domain: general
+tags:
+- compliance
+- guidelines
+workflow_type: graph
+config: {}
+limits: null
+triggers: []
+steps:
+- id: ingest_agent
+  name: Ingest Agent
+  type: intelligence
+  agent_name: null
+  agent_config:
+    name: Document Ingestion Agent
+    persona:
+      role: Document ingestion specialist
+      tone: professional
+      system_prompt: >
+        You are a document ingestion agent. Your job is to store document chunks
+        into the vector store.
+
+        When you receive chunks, use the vector_store tool with operation 'upsert'
+        to store them. Use the collection_name provided in the context.
+
+        For each upsert call, pass the chunks as documents with their text content.
+
+        After storing, report how many chunks were stored successfully.
+      prompt_ref: null
+    description: Stores document chunks in vector store
+    llm_config:
+      provider: azure_openai
+      model: gpt-4.1
+      temperature: 0.0
+      max_tokens: 4000
+      top_p: 1.0
+      frequency_penalty: null
+      presence_penalty: null
+      stop_sequences: null
+      sub_model: null
+      extra_config: {}
+      fallback_providers: []
+      fallback_timeout: 30.0
+    category: general
+    tags: []
+    tools:
+    - name: Vector Store
+      description: Store and search document chunks in the vector database
+      type: component
+      config:
+        operation: upsert
+        dimensions: 1536
+        content_key: text
+        query: null
+        documents: null
+        limit: 10
+        filter: null
+        connector_name: vector_store
+        connection_name: null
+        expose_fields:
+        - documents
+        - collection_name
+        component: vector_store
+        collection_name: company-guidelines
+      input_schema: null
+      output_schema: null
+      requires_approval: false
+      connection_scope: null
+    knowledge: []
+    memory: null
+    execution_strategy: react
+    goals:
+    - title: Store all provided chunks in the vector store
+      description: Upsert all document chunks with their metadata
+      priority: 5
+      success_criteria: []
+    kpis: []
+    verification: null
+    max_steps: 10
+    streaming: false
+    output_schema: null
+    attachments: []
+  tool: null
+  component: llm_agent
+  workflow_name: null
+  input: null
+  dependencies: []
+  routes: []
+  batch: null
+  for_each: null
+  steps: []
+  aggregate: {}
+  config:
+    temperature: 0.0
+    max_tokens: 4000
+    streaming: false
+    agent_name: null
+    user_message: null
+    conversation_context: null
+    files: null
+    attachments: null
+    output_schema: null
+    output_model: null
+    use_pydantic_ai: true
+    memory_integration: false
+    response_content: ''
+    context: '{{context.message}}'
+    collection_name: '{{context.collection_name}}'
+    chunks: '{{context.chunks}}'
+    source: '{{context.source}}'
+  properties: null
+- id: output
+  name: Result
+  type: output
+  agent_name: null
+  agent_config: null
+  tool: null
+  component: chat_output
+  workflow_name: null
+  input: null
+  dependencies:
+  - ingest_agent
+  routes: []
+  batch: null
+  for_each: null
+  steps: []
+  aggregate: {}
+  config:
+    response: '{{steps.ingest_agent.output}}'
+    format: text
+    include_metadata: false
+    sanitize_output: true
+    max_length: 50000
+    enable_markdown: true
+    include_timestamps: false
+    include_citations: false
+    outputs: []
+    description: Output
+  properties: null
+edges: []
+variables: {}
+inputs:
+  message:
+    type: string
+    description: Instructions for the agent
+    required: true
+  chunks:
+    type: array
+    description: Array of text chunks to store
+    required: true
+  source:
+    type: string
+    description: Source document name
+    required: true
+  collection_name:
+    type: string
+    description: Vector collection name
+    default: company-guidelines
+outputs: {}
+ui_metadata: {}

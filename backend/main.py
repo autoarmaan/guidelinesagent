@@ -1,12 +1,11 @@
+import json
 import os
+import subprocess
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from openai import OpenAI
-
-from vector_store import ingest_documents, query_documents
 
 _env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".env")
 load_dotenv(_env_path, override=True)
@@ -21,85 +20,100 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-DOCUMENTS_DIR = os.path.join(os.path.dirname(__file__), "..", "documents")
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
-
-SYSTEM_PROMPT = """You are a compliance and security expert assistant. Your job is to answer questions about organizational guidelines, policies, and security practices based on the provided context documents.
-
-Rules:
-- Only answer based on the provided context. If the context doesn't contain enough information, say so.
-- Be precise and cite specific policy sections when possible.
-- For yes/no questions, give a clear answer then explain.
-- Keep answers concise but thorough."""
+WORKFLOW_ID = "f21caa65-d208-4de7-a257-1ab9167c8c98"
 
 
 class ChatRequest(BaseModel):
     message: str
+    session_id: str = "default"
 
 
 class ChatResponse(BaseModel):
     answer: str
-    sources: list[str]
+    sources: list = []
+
+
+def _get_token() -> str:
+    """Read the stored autonomize CLI token."""
+    creds_path = os.path.join(
+        os.environ.get("APPDATA", ""), "autonomize", "credentials.json"
+    )
+    try:
+        with open(creds_path) as f:
+            creds = json.load(f)
+        return creds["profiles"]["https://genesis.integration.autonomize.ai/studio"][
+            "access_token"
+        ]
+    except (FileNotFoundError, KeyError):
+        raise HTTPException(
+            status_code=500,
+            detail="Not logged in to AI Studio. Run: autonomize login",
+        )
 
 
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
-    if not OPENAI_API_KEY:
-        raise HTTPException(status_code=500, detail="OPENAI_API_KEY not configured")
+    """Run the AI Studio compliance chatbot workflow."""
+    token = _get_token()
 
-    # Retrieve relevant document chunks
-    relevant_chunks = query_documents(request.message, OPENAI_API_KEY)
+    import httpx
 
-    if not relevant_chunks:
-        return ChatResponse(
-            answer="No documents have been ingested yet. Please upload guideline documents first.",
-            sources=[],
+    async with httpx.AsyncClient(timeout=120.0) as client:
+        exec_resp = await client.post(
+            f"https://genesis.integration.autonomize.ai/studio/api/v1/workflows/{WORKFLOW_ID}/execute",
+            headers={
+                "Authorization": f"Bearer {token}",
+                "Content-Type": "application/json",
+                "x-organization-id": "16a74ae7-32e9-46e7-9250-2a307dfd6252",
+                "x-project-id": "4df068e6-4d6b-432d-b337-df98d2a428af",
+            },
+            json={"context": {"message": request.message}},
         )
 
-    context = "\n\n---\n\n".join(relevant_chunks)
+        if exec_resp.status_code != 200:
+            raise HTTPException(
+                status_code=502,
+                detail=f"AI Studio error ({exec_resp.status_code}): {exec_resp.text[:500]}",
+            )
 
-    client = OpenAI(api_key=OPENAI_API_KEY)
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {
-                "role": "user",
-                "content": f"Context from guideline documents:\n\n{context}\n\n---\n\nQuestion: {request.message}",
-            },
-        ],
-        temperature=0.2,
-    )
-
-    return ChatResponse(
-        answer=response.choices[0].message.content,
-        sources=relevant_chunks[:3],
-    )
+        result = exec_resp.json()
+        answer = _extract_answer(result)
+        return ChatResponse(answer=answer)
 
 
-@app.post("/api/ingest")
-async def ingest():
-    if not OPENAI_API_KEY:
-        raise HTTPException(status_code=500, detail="OPENAI_API_KEY not configured")
+def _extract_answer(result: dict) -> str:
+    """Extract the text answer from an AI Studio execution response."""
+    # Direct content field
+    if "content" in result:
+        return result["content"]
 
-    os.makedirs(DOCUMENTS_DIR, exist_ok=True)
-    count = ingest_documents(DOCUMENTS_DIR, OPENAI_API_KEY)
-    return {"message": f"Ingested {count} chunks from documents in /documents folder"}
+    # Nested in output
+    if "output" in result:
+        output = result["output"]
+        if isinstance(output, str):
+            return output
+        if isinstance(output, dict) and "content" in output:
+            return output["content"]
 
+    # Nested in result
+    if "result" in result:
+        r = result["result"]
+        if isinstance(r, str):
+            return r
+        if isinstance(r, dict):
+            if "content" in r:
+                return r["content"]
+            if "output" in r:
+                o = r["output"]
+                if isinstance(o, str):
+                    return o
+                if isinstance(o, dict) and "content" in o:
+                    return o["content"]
 
-@app.post("/api/upload")
-async def upload_document(file: UploadFile = File(...)):
-    if not file.filename.endswith(".docx"):
-        raise HTTPException(status_code=400, detail="Only .docx files are supported")
-
-    os.makedirs(DOCUMENTS_DIR, exist_ok=True)
-    file_path = os.path.join(DOCUMENTS_DIR, file.filename)
-    with open(file_path, "wb") as f:
-        f.write(await file.read())
-
-    return {"message": f"Uploaded {file.filename}"}
+    # Fallback: return the whole thing as JSON
+    return json.dumps(result, indent=2)
 
 
 @app.get("/api/health")
 async def health():
-    return {"status": "ok"}
+    return {"status": "ok", "mode": "ai-studio"}

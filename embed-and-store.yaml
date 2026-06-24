@@ -1,0 +1,135 @@
+name: Embed and Store Chunks
+description: >
+  Takes pre-chunked text (from local parsing), generates embeddings,
+  and stores in the vector store. Skips OCR since docs are parsed locally.
+version: 1.0.0
+category: knowledge-center
+domain: general
+tags:
+- compliance
+- guidelines
+workflow_type: graph
+config: {}
+limits: null
+triggers: []
+steps:
+- id: generate_embeddings
+  name: Generate Embeddings
+  type: component
+  agent_name: null
+  agent_config: null
+  tool: null
+  component: batch_embedder
+  workflow_name: null
+  input: null
+  dependencies: []
+  routes: []
+  batch: null
+  for_each: null
+  steps: []
+  aggregate: {}
+  config:
+    texts: '{{workflow.input.chunks}}'
+    provider: '{{workflow.input.embedding_provider}}'
+    model: '{{workflow.input.embedding_model}}'
+    use_intermediate_storage: true
+    workflow_run_id: '{{workflow.execution_id}}'
+  properties: null
+- id: build_documents
+  name: Build Vector Documents
+  type: component
+  agent_name: null
+  agent_config: null
+  tool: null
+  component: document_builder
+  workflow_name: null
+  input: null
+  dependencies:
+  - generate_embeddings
+  routes: []
+  batch: null
+  for_each: null
+  steps: []
+  aggregate: {}
+  config:
+    chunks: '{{workflow.input.chunks}}'
+    embeddings: '{{steps.generate_embeddings.output}}'
+    source: '{{workflow.input.source}}'
+    use_intermediate_storage: true
+    workflow_run_id: '{{workflow.execution_id}}'
+    metadata: '{{workflow.input.metadata}}'
+  properties: null
+- id: store_vectors
+  name: Store Vectors
+  type: tool
+  agent_name: null
+  agent_config: null
+  tool:
+    type: connection
+    connector: vector_store
+    tool_name: upsert_documents
+    connection_scope: null
+  component: null
+  workflow_name: null
+  input:
+    collection_name: '{{workflow.input.collection_name}}'
+    documents: '{{steps.build_documents.output.documents}}'
+    use_intermediate_storage: true
+    workflow_run_id: '{{workflow.execution_id}}'
+  dependencies:
+  - build_documents
+  routes: []
+  batch: null
+  for_each: null
+  steps: []
+  aggregate: {}
+  config: {}
+  properties: null
+- id: final_output
+  name: Result
+  type: output
+  agent_name: null
+  agent_config: null
+  tool: null
+  component: null
+  workflow_name: null
+  input:
+    source: '{{workflow.input.source}}'
+    chunks_count: '{{workflow.input.chunks | length}}'
+    status: completed
+  dependencies:
+  - store_vectors
+  routes: []
+  batch: null
+  for_each: null
+  steps: []
+  aggregate: {}
+  config: {}
+  properties: null
+edges: []
+variables: {}
+inputs:
+  chunks:
+    type: array
+    description: Array of text chunks to embed and store
+    required: true
+  source:
+    type: string
+    description: Source document name for metadata
+    required: true
+  collection_name:
+    type: string
+    description: Vector store collection name
+    default: company-guidelines
+  metadata:
+    type: object
+    description: Additional metadata for each chunk
+    default: {}
+  embedding_provider:
+    type: string
+    default: ''
+  embedding_model:
+    type: string
+    default: ''
+outputs: {}
+ui_metadata: {}

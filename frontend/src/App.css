@@ -157,6 +157,18 @@ body {
   color: #666;
 }
 
+.source-header {
+  font-weight: 600;
+  color: #2563eb;
+  font-size: 0.8em;
+  margin-bottom: 4px;
+}
+
+.source-text {
+  font-size: 0.85em;
+  line-height: 1.4;
+}
+
 .input-form {
   display: flex;
   border-top: 1px solid #e5e7eb;

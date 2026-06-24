@@ -1,0 +1,162 @@
+name: Compliance Guidelines Chatbot
+description: >
+  RAG chatbot that answers compliance and security questions using
+  guideline documents from Knowledge Center, with source citations.
+version: 1.0.0
+category: knowledge-center
+domain: general
+tags:
+- compliance
+- guidelines
+- chatbot
+workflow_type: graph
+config: {}
+limits: null
+triggers: []
+steps:
+- id: chatbot_agent
+  name: Compliance Agent
+  type: intelligence
+  agent_name: null
+  agent_config:
+    name: Compliance Guidelines Agent
+    persona:
+      role: Compliance and security policy expert
+      tone: professional
+      system_prompt: >
+        You are a compliance and security policy expert. You answer questions about
+        company guidelines, policies, and procedures by searching the organization's
+        guideline document knowledge base.
+
+        ## Workflow
+        1. Analyze the user's question to identify relevant policy areas.
+        2. Use the Knowledge Retrieval tool to retrieve relevant guideline sections.
+        3. Synthesize a clear, accurate answer grounded ONLY in the retrieved content.
+
+        ## Citation Rules
+        - ALWAYS cite the specific source document and section for every claim.
+        - Format citations as: [Source: <document name>, <section/page>]
+        - If multiple sections support an answer, cite all of them.
+        - If retrieved content does not contain enough information, say so explicitly.
+          Do NOT fabricate or infer policy details.
+
+        ## Answer Format
+        - Lead with a direct yes/no or summary answer.
+        - Follow with supporting details and policy references.
+        - Use bullet points for multi-part answers.
+        - Quote exact policy language when relevant.
+
+        ## Rules
+        - ONLY use information from retrieved guideline content — NO HALLUCINATION.
+        - If the question is outside the scope of available guidelines, state that clearly.
+        - Be precise with policy language — do not paraphrase in ways that change meaning.
+      prompt_ref: null
+    description: Answers compliance questions using Knowledge Center documents
+    llm_config:
+      provider: azure_openai
+      model: gpt-4.1
+      temperature: 0.2
+      max_tokens: 16000
+      top_p: 1.0
+      frequency_penalty: null
+      presence_penalty: null
+      stop_sequences: null
+      sub_model: null
+      extra_config: {}
+      fallback_providers: []
+      fallback_timeout: 30.0
+    category: general
+    tags: []
+    tools:
+    - name: Knowledge Retrieval
+      description: Search compliance guideline documents from Knowledge Center
+      type: component
+      config:
+        limit: 10
+        filter: null
+        knowledge_name: compliance_guidelines
+        component: knowledge_retrieval
+      input_schema: null
+      output_schema: null
+      requires_approval: false
+      connection_scope: null
+    knowledge: []
+    memory:
+      type: conversation_buffer
+      config: {}
+      enabled: true
+      collection_name: null
+      window_size: 10
+    execution_strategy: react
+    goals: []
+    kpis: []
+    verification: null
+    max_steps: 25
+    streaming: true
+    output_schema: null
+    attachments: []
+  tool: null
+  component: llm_agent
+  workflow_name: null
+  input: null
+  dependencies: []
+  routes: []
+  batch: null
+  for_each: null
+  steps: []
+  aggregate: {}
+  config:
+    temperature: 0.2
+    max_tokens: 16000
+    streaming: true
+    agent_name: null
+    user_message: null
+    conversation_context: null
+    files: null
+    attachments: null
+    output_schema: null
+    output_model: null
+    use_pydantic_ai: true
+    memory_integration: true
+    response_content: ''
+    query: '{{context.message}}'
+    context: '{{context.message}}'
+    outputs: []
+  properties: null
+- id: output
+  name: Chat Output
+  type: output
+  agent_name: null
+  agent_config: null
+  tool: null
+  component: chat_output
+  workflow_name: null
+  input: null
+  dependencies:
+  - chatbot_agent
+  routes: []
+  batch: null
+  for_each: null
+  steps: []
+  aggregate: {}
+  config:
+    response: '{{steps.chatbot_agent.output}}'
+    format: markdown
+    include_metadata: true
+    sanitize_output: true
+    max_length: 50000
+    enable_markdown: true
+    include_timestamps: false
+    include_citations: true
+    outputs: []
+    description: Compliance chatbot response with citations
+  properties: null
+edges: []
+variables: {}
+inputs:
+  message:
+    type: string
+    description: User's compliance or policy question
+    required: true
+outputs: {}
+ui_metadata: {}

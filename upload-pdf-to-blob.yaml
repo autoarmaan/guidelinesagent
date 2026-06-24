@@ -1,0 +1,63 @@
+name: Upload PDF to Blob
+description: Generate upload URL for guideline-documents blob
+version: 1.0.0
+category: general
+domain: general
+tags: []
+workflow_type: graph
+config: {}
+limits: null
+triggers: []
+steps:
+- id: generate_url
+  name: Generate Upload URL
+  type: tool
+  agent_name: null
+  agent_config: null
+  tool:
+    type: connection
+    connection_name: guideline-documents-blob
+    tool_name: generate_upload_url
+    connection_scope: null
+  component: null
+  workflow_name: null
+  input:
+    blob_name: "{{context.blob_name}}"
+    expiry_minutes: 60
+  dependencies: []
+  routes: []
+  batch: null
+  for_each: null
+  steps: []
+  aggregate: {}
+  config: {}
+  properties: null
+- id: output
+  name: Output
+  type: output
+  agent_name: null
+  agent_config: null
+  tool: null
+  component: null
+  workflow_name: null
+  input: null
+  dependencies:
+  - generate_url
+  routes: []
+  batch: null
+  for_each: null
+  steps: []
+  aggregate: {}
+  config:
+    data:
+      url: "{{steps.generate_url.output}}"
+  properties: null
+edges: []
+variables: {}
+inputs:
+  blob_name:
+    type: string
+    description: Name of the blob to upload
+    required: true
+outputs: {}
+ui_metadata: {}

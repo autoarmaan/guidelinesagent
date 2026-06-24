@@ -1,0 +1,297 @@
+name: Guidelines RAG Ingestion
+description: "Large-file RAG ingestion pipeline with file-level batching. Downloads\
+  \ files to intermediate storage, OCRs entire documents via Azure Document Intelligence\
+  \ (extract_layout_with_chunks), splits text into chunks, generates embeddings, and\
+  \ stores into the vector store with rich metadata (file hash, bounding regions,\
+  \ chunk UUIDs). All intermediate data is externalized to disk to stay within Temporal's\
+  \ 2 MB payload limit.\nv2.0.0 \u2014 Redesigned from page-level to file-level batching.\
+  \ For 4 files: ~24 child workflows (vs ~930+ at page-level).\n"
+version: 2.0.0
+created_by_name: Armaan Amatya
+category: knowledge-center
+domain: general
+tags:
+- template:rag_ingestion_large_files
+workflow_type: graph
+config: {}
+limits: null
+triggers: []
+steps:
+- id: list_files
+  name: List Source Documents
+  type: tool
+  agent_name: null
+  agent_config: null
+  tool:
+    type: connection
+    connection_name: '{{workflow.input.connection_name}}'
+    tool_name: list_files
+    connection_scope: null
+  component: null
+  workflow_name: null
+  input:
+    prefix: '{{workflow.input.prefix}}'
+    max_results: '{{workflow.input.max_files}}'
+  dependencies: []
+  routes: []
+  batch: null
+  for_each: null
+  steps: []
+  aggregate: {}
+  config:
+    retry:
+      max_attempts: 3
+      backoff: exponential
+      initial_delay: 1.0
+  properties: null
+- id: download_files
+  name: Download to Intermediate Storage
+  type: tool
+  agent_name: null
+  agent_config: null
+  tool:
+    type: connection
+    connection_name: '{{workflow.input.connection_name}}'
+    tool_name: download_file
+    connection_scope: null
+  component: null
+  workflow_name: null
+  input:
+    blob_name: '{{ batch_item.name}}'
+    workflow_run_id: '{{workflow.execution_id}}'
+  dependencies:
+  - list_files
+  routes: []
+  batch:
+    input: '{{steps.list_files.output.files}}'
+    mode: parallel
+    size: 1
+    max_concurrent: 5
+  for_each: '{{steps.list_files.output.files}}'
+  steps: []
+  aggregate: {}
+  config:
+    retry:
+      max_attempts: 2
+      backoff: exponential
+      initial_delay: 1.0
+  properties: null
+- id: ocr_files
+  name: OCR Documents
+  type: tool
+  agent_name: null
+  agent_config: null
+  tool:
+    type: connection
+    connector: azure_doc_intel
+    tool_name: extract_layout_with_chunks
+    connection_scope: null
+  component: null
+  workflow_name: null
+  input:
+    document: '{{ batch_item.parts.0.content.content}}'
+    workflow_run_id: '{{workflow.execution_id}}'
+    use_intermediate_storage: true
+  dependencies:
+  - download_files
+  routes: []
+  batch:
+    input: '{{steps.download_files.output.results}}'
+    mode: parallel
+    size: 1
+    max_concurrent: 5
+  for_each: '{{steps.download_files.output.results}}'
+  steps: []
+  aggregate: {}
+  config:
+    on_error: continue
+  properties: null
+- id: split_texts
+  name: Split Text Chunks
+  type: component
+  agent_name: null
+  agent_config: null
+  tool: null
+  component: text_splitter
+  workflow_name: null
+  input: null
+  dependencies:
+  - ocr_files
+  routes: []
+  batch: null
+  for_each: null
+  steps: []
+  aggregate: {}
+  config:
+    batch_input: '{{steps.ocr_files.output.results}}'
+    batch_mode: parallel
+    max_concurrent: '{{workflow.input.max_concurrent}}'
+    batch_size: 1
+    text: '{{batch_item.parts.0.content.page_contents | join(''
+
+
+      '')}}'
+    source: '{{batch_item.parts.0.content.source | default('''')}}'
+    chunk_size: '{{workflow.input.chunk_size}}'
+    chunk_overlap: '{{workflow.input.chunk_overlap}}'
+    use_intermediate_storage: true
+  properties: null
+- id: generate_embeddings
+  name: Generate Embeddings
+  type: component
+  agent_name: null
+  agent_config: null
+  tool: null
+  component: batch_embedder
+  workflow_name: null
+  input: null
+  dependencies:
+  - split_texts
+  routes: []
+  batch: null
+  for_each: null
+  steps: []
+  aggregate: {}
+  config:
+    batch_input: '{{steps.split_texts.output.documents}}'
+    batch_mode: parallel
+    max_concurrent: '{{workflow.input.max_concurrent}}'
+    batch_size: 1
+    provider: '{{workflow.input.embedding_provider}}'
+    model: '{{workflow.input.embedding_model}}'
+    texts: '{{batch_item.chunks}}'
+    use_intermediate_storage: true
+    workflow_run_id: '{{workflow.execution_id}}'
+  properties: null
+- id: build_documents
+  name: Build Vector Documents
+  type: component
+  agent_name: null
+  agent_config: null
+  tool: null
+  component: document_builder
+  workflow_name: null
+  input: null
+  dependencies:
+  - split_texts
+  - generate_embeddings
+  - ocr_files
+  routes: []
+  batch: null
+  for_each: null
+  steps: []
+  aggregate: {}
+  config:
+    batch_input: '{{steps.split_texts.output.documents}}'
+    batch_mode: parallel
+    max_concurrent: '{{workflow.input.max_concurrent}}'
+    batch_size: 1
+    chunks: '{{batch_item.chunks}}'
+    embeddings: '{{steps_item.generate_embeddings.output}}'
+    source: '{{batch_item.source}}'
+    use_intermediate_storage: true
+    workflow_run_id: '{{workflow.execution_id}}'
+    metadata:
+      file_hash: '{{steps_item.ocr_files.output.parts.0.content.file_hash | default('''')}}'
+      total_pages: '{{steps_item.ocr_files.output.parts.0.content.page_contents |
+        length}}'
+      chunks_metadata: '{{steps_item.ocr_files.output.parts.0.content.page_metadata
+        | default('''')}}'
+  properties: null
+- id: store_vectors
+  name: Store Vectors
+  type: tool
+  agent_name: null
+  agent_config: null
+  tool:
+    type: connection
+    connector: vector_store
+    tool_name: upsert_documents
+    connection_scope: null
+  component: null
+  workflow_name: null
+  input:
+    collection_name: '{{workflow.input.collection_name}}'
+    documents: '{{ batch_item.documents}}'
+    use_intermediate_storage: true
+    workflow_run_id: '{{workflow.execution_id}}'
+  dependencies:
+  - build_documents
+  routes: []
+  batch:
+    input: '{{steps.build_documents.output.documents}}'
+    mode: parallel
+    size: 1
+    max_concurrent: 5
+  for_each: '{{steps.build_documents.output.documents}}'
+  steps: []
+  aggregate: {}
+  config: {}
+  properties: null
+- id: final_output
+  name: Pipeline Summary
+  type: output
+  agent_name: null
+  agent_config: null
+  tool: null
+  component: null
+  workflow_name: null
+  input:
+    files_processed: '{{steps.ocr_files.output.results | length}}'
+    documents_stored: '{{steps.store_vectors.output.results | length}}'
+    errors: '{{steps.store_vectors.output.errors}}'
+    source_files: '{{steps.list_files.output.files | length}}'
+  dependencies:
+  - store_vectors
+  routes: []
+  batch: null
+  for_each: null
+  steps: []
+  aggregate: {}
+  config: {}
+  properties: null
+edges: []
+variables: {}
+inputs:
+  connection_name:
+    type: string
+    description: Azure Blob Storage connection name containing documents
+    required: true
+  collection_name:
+    type: string
+    description: Vector store collection name for storing embeddings
+    required: true
+  embedding_provider:
+    type: string
+    description: Embedding provider name (resolved from IS_AUTONOMIZE_EMBEDDINGS_ENABLED
+      at runtime)
+    default: ''
+  embedding_model:
+    type: string
+    description: Embedding model name (resolved from IS_AUTONOMIZE_EMBEDDINGS_ENABLED
+      at runtime)
+    default: ''
+  chunk_size:
+    type: integer
+    default: 1000
+    description: Maximum characters per text chunk
+  chunk_overlap:
+    type: integer
+    default: 200
+    description: Overlap between adjacent chunks
+  max_concurrent:
+    type: integer
+    default: 3
+    description: Maximum concurrent batch operations
+  prefix:
+    type: string
+    default: ''
+    description: Blob name prefix filter (e.g., 'documents/' to only process that
+      folder)
+  max_files:
+    type: integer
+    default: 100
+    description: Maximum number of files to process
+outputs: {}
+ui_metadata: {}
+last_run: null

@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 
+const SESSION_ID = crypto.randomUUID();
+
 function ChatBot({ apiUrl }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -23,7 +25,7 @@ function ChatBot({ apiUrl }) {
       const res = await fetch(`${apiUrl}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage }),
+        body: JSON.stringify({ message: userMessage, session_id: SESSION_ID }),
       });
       const data = await res.json();
 
@@ -70,7 +72,13 @@ function ChatBot({ apiUrl }) {
                 <summary>Sources ({msg.sources.length})</summary>
                 {msg.sources.map((s, j) => (
                   <div key={j} className="source-chunk">
-                    {s.substring(0, 200)}...
+                    <div className="source-header">
+                      {s.source} &mdash; {s.path}
+                    </div>
+                    <div className="source-text">
+                      {s.text.substring(0, 300)}
+                      {s.text.length > 300 ? "..." : ""}
+                    </div>
                   </div>
                 ))}
               </details>
