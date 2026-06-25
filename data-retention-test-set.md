@@ -1,0 +1,34 @@
+# Data Retention, Archival, and Purge Policy - Test Q&A Set
+
+| No. | Question | Expected Answer |
+|-----|----------|-----------------|
+| 1 | What is the purpose of Autonomize's Data Retention, Archival, and Purge Policy? | To define Autonomize's approach to data retention, archival, purge, and audit support to ensure protection of sensitive and regulated data (including PHI), compliance with HIPAA and contractual obligations, operational efficiency and risk reduction, and transparency with clients regarding how data is handled throughout its lifecycle. |
+| 2 | What types of data does this policy apply to? | All data processed, stored, transmitted, or logged by Autonomize systems, including clinical and operational data, platform metadata, solution and audit logs, AI/ML artifacts, and client-provided data sources and downstream extracts. |
+| 3 | What are the five guiding principles for data lifecycle management? | 1) Data Retention Limitation - retain data only for the minimum period necessary. 2) Security by Design - protect data at rest, in transit, and during archival using industry-standard encryption. 3) Least Privilege Access - restrict access to authorized personnel only. 4) Client Transparency - clearly define ownership, retention timelines, and purge mechanisms. 5) Audit Readiness - maintain the ability to support audits through controlled, time-bound data access. |
+| 4 | What is the default retention period for high criticality data with PHI? | 6 years / 72 months. |
+| 5 | What is the default retention period for high criticality data without PHI? | 2 years / 24 months. |
+| 6 | What is the default retention period for medium criticality logs? | 1 year / 12 months. |
+| 7 | What is the minimum retention period for audit and access logs? | Minimum of 1 year, or per client requirements. |
+| 8 | What factors can cause retention periods to be adjusted from the defaults? | Client-specific requirements, legal holds, and active investigations or audits. |
+| 9 | What triggers data to be moved from active systems to archival storage? | Data is archived when it exceeds defined active-use retention thresholds, is no longer required for real-time operations, or client-approved archival milestones are reached. |
+| 10 | What are the steps in the archival process? | 1) Identification - eligible data identified based on retention rules and metadata. 2) Validation - data validated for completeness and integrity. 3) Encryption - data encrypted using 256-bit AES encryption. 4) Secure Storage - stored in secure, access-controlled archival storage (Azure Archive Storage, separate from production). 5) Indexing - metadata retained for future retrieval. |
+| 11 | What encryption standard is used for archived data? | 256-bit AES encryption. |
+| 12 | Where is archived data stored? | In Azure Archive Storage, which is separate from the production storage accounts. |
+| 13 | Who can access archived data? | Archived data is not accessible to application users. Access is restricted to authorized Autonomize security or compliance personnel. All access events are logged and monitored. |
+| 14 | What is the SLA for retrieving requested audit trails and logs from archival? | 30 calendar days. |
+| 15 | What are the triggers for permanent data deletion (purge)? | Data is eligible for purge when the retention period has expired, the client provides written approval or instruction, or the client contract terminates. |
+| 16 | What are the steps in the purge process? | 1) Pre-Purge Review - confirmation of eligibility and approvals. 2) Secure Deletion - data permanently deleted using industry-accepted secure deletion methods. 3) Verification - deletion validated to ensure irrecoverability. 4) Logging - purge activities logged for auditability. |
+| 17 | Are there any exceptions to the data purge process? | Yes. Data under legal hold or regulatory investigation is excluded from purge. Exceptions are documented and reviewed periodically. |
+| 18 | How does Autonomize support audits? | Through time-bound, read-only access to required data; secure data extracts when direct access is not appropriate; and redaction or masking applied where feasible. |
+| 19 | What is included in audit assistance scope? | Data retrieval from active or archived storage, validation of data lineage and integrity, and evidence of access logs, retention, and purge activities. |
+| 20 | What are the roles and responsibilities defined in the policy? | Autonomize Security & Compliance handles policy enforcement, audits, and exception handling. Autonomize Operations executes retention, archival, and purge processes. Client Stakeholders approve retention deviations and purge instructions. Third-Party Auditors receive limited, supervised access as approved. |
+| 21 | How often is the policy reviewed? | At least annually, or upon regulatory/compliance changes, material changes to Autonomize systems or architecture, or updates to internal security or privacy standards. |
+| 22 | Do client-specific addendums require changes to the master policy? | No, client-specific addendums do not require changes to the master policy unless they impact baseline controls. |
+| 23 | What does the client acknowledge by signing off on the project? | Review and acceptance of the Data Retention, Archival, and Purge Policy, understanding of default retention timelines and purge mechanisms, and agreement that any deviations will be documented separately. |
+| 24 | Where are client-specific deviations from this policy documented? | As part of contractual agreements, Order Forms, or Statements of Work (SOWs). |
+| 25 | How does Autonomize ensure data security during archival? | Data is encrypted using 256-bit AES encryption and stored in Azure Archive Storage separate from production, with access restricted to authorized security or compliance personnel, and all access events logged and monitored. |
+| 26 | What compliance frameworks does this policy help satisfy? | HIPAA, contractual obligations, and client-specific requirements. |
+| 27 | Can application users access archived data directly? | No. Archived data is not accessible to application users. Only authorized Autonomize security or compliance personnel can access it. |
+| 28 | What happens to data when a client contract terminates? | The data becomes eligible for permanent deletion (purge), following the defined purge process including pre-purge review, secure deletion, verification, and logging. |
+| 29 | How does Autonomize handle data that is subject to a legal hold? | Data under legal hold or regulatory investigation is excluded from purge. These exceptions are documented and reviewed periodically. |
+| 30 | Who approves the policy? | The Autonomize Security & Compliance Team. The policy applies to all clients and engagements. |
