@@ -1,0 +1,582 @@
+{
+  "output": {
+    "content": "Summary answer: The data retention period depends on data type and criticality. Default retention periods are:\n\n- High Criticality Data with PHI: 6 years (72 months)\n- High Criticality Data without PHI: 2 years (24 months)\n- Medium Criticality Logs: 1 year (12 months)\n- Audit and Access Logs: Minimum of 1 year or per client requirements\n\nSupporting details and policy references:\n- \"Unless otherwise defined by client contract, Autonomize applies the following default retention periods, consistent with compliance standards: High Criticality Data with PHI: 6 years / 72 months; High Criticality Data without PHI: 2 years / 24 months; Medium Criticality Logs: 1 year / 12 months. Audit and Access Logs: Minimum of 1 year or per client requirements.\" [Source: Autonomize \u2013 Data Retention, Archival, And Purge Policy, Section 5.1 Retention Timeframes (Default), page 3]\n- Retention periods may be adjusted based on client-specific requirements, legal holds, or active investigations/audits. [Source: Autonomize \u2013 Data Retention, Archival, And Purge Policy, page 4]\n\nIf you need retention periods for a specific data category or have client-specific requirements, please clarify.",
+    "structured_output": null,
+    "usage": {
+      "input_tokens": 8761,
+      "cache_write_tokens": 0,
+      "cache_read_tokens": 0,
+      "output_tokens": 304,
+      "input_audio_tokens": 0,
+      "cache_audio_read_tokens": 0,
+      "output_audio_tokens": 0,
+      "details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "requests": 2,
+      "tool_calls": 1
+    },
+    "cost": 0.019954,
+    "call_duration_ms": 11170,
+    "messages": [
+      {
+        "content": "ModelRequest(parts=[UserPromptPart(content='Execution context:\\n  message: What is the data retention period?\\n  organization_id: 16a74ae7-32e9-46e7-9250-2a307dfd6252\\n  project_id: 4df068e6-4d6b-432d-b337-df98d2a428af\\n  user_id: 747f5fec-a666-4b82-8db1-4dd5f5e62abb\\n\\nWhat is the data retention period?\\n\\nExecution context:\\n  message: What is the data retention period?\\n  organization_id: 16a74ae7-32e9-46e7-9250-2a307dfd6252\\n  project_id: 4df068e6-4d6b-432d-b337-df98d2a428af\\n  user_id: 747f5fec-a666-4b82-8db1-4dd5f5e62abb', timestamp=datetime.datetime(2026, 6, 24, 21, 59, 5, 95666, tzinfo=datetime.timezone.utc))], timestamp=datetime.datetime(2026, 6, 24, 21, 59, 5, 95825, tzinfo=datetime.timezone.utc), instructions='You are a Compliance and security policy expert. Your tone should be professional.\\n\\nYou are a compliance and security policy expert. You answer questions about company guidelines, policies, and procedures by searching the organization\\'s guideline document knowledge base.\\n## Workflow 1. Analyze the user\\'s question to identify relevant policy areas. 2. Use the Knowledge Retrieval tool to retrieve relevant guideline sections. 3. Synthesize a clear, accurate answer grounded ONLY in the retrieved content.\\n## Citation Rules - ALWAYS cite the specific source document and section for every claim. - Format citations as: [Source: <document name>, <section/page>] - If multiple sections support an answer, cite all of them. - If retrieved content does not contain enough information, say so explicitly.\\n  Do NOT fabricate or infer policy details.\\n\\n## Answer Format - Lead with a direct yes/no or summary answer. - Follow with supporting details and policy references. - Use bullet points for multi-part answers. - Quote exact policy language when relevant.\\n## Rules - ONLY use information from retrieved guideline content \u00e2\u20ac\u201d NO HALLUCINATION. - If the question is outside the scope of available guidelines, state that clearly. - Be precise with policy language \u00e2\u20ac\u201d do not paraphrase in ways that change meaning.\\n\\n\\nYou are an AI Agent designed to respond to user queries in the most optimal, clear, and accurate manner.\\n\\nGeneral Behavior:\\n- Provide concise, structured, and correct responses.\\n- Ask clarifying questions only when necessary.\\n- Do not add unnecessary information.\\n- Be transparent about limitations.\\n\\nAlways aim for maximum usefulness with minimal verbosity.\\n\\nConnected External Tools:\\nThe following external tools are specifically connected to you for this session:\\n- Knowledge Retrieval: Search compliance guideline documents from Knowledge Center\\n\\nWhen Asked About Connected or External Tools:\\n- Refer ONLY to the tools listed in the \"Connected External Tools\" section above.\\n- Do not report tools beyond those explicitly listed there.\\n- Do not infer, assume, or fabricate tools based on your training knowledge or function schemas.\\n- Use EXACTLY the name and description listed \u2014 do NOT expand, elaborate, or supplement with details from function signatures, docstrings, or API schemas.\\n- Do NOT enumerate individual sub-capabilities, operations, or functions of a tool \u2014 report only the top-level name and description as provided.\\n- Clearly distinguish between your native capabilities (reasoning, writing, coding, analysis) and these externally connected tools.\\n\\nWhen Asked About Your Capabilities:\\n- List your core capabilities (reasoning, writing, coding, analysis, etc.).\\n- Then list ONLY the additional capabilities enabled by the externally connected tools listed above, using exactly the provided descriptions.\\n- Never fabricate, infer, or assume the existence of tools not listed in the Connected External Tools section.\\n- Never expand tool descriptions beyond what is explicitly listed in the Connected External Tools section.', run_id='019efba4-d886-7040-b6f0-3a81bf59e5a9', conversation_id='019efba4-d886-7040-b6f0-3a8013b71d91')"
+      },
+      {
+        "content": "ModelResponse(parts=[ToolCallPart(tool_name='use_Knowledge_Retrieval_compliance_guidelines', args='{\"query\":\"data retention period\",\"knowledge_source\":\"project\"}', tool_call_id='call_f3PE5yuWV6hwyIahiswtMucV')], usage=RequestUsage(input_tokens=1048, output_tokens=31, details={'accepted_prediction_tokens': 0, 'audio_tokens': 0, 'reasoning_tokens': 0, 'rejected_prediction_tokens': 0}), model_name='gpt-4.1-2025-04-14', timestamp=datetime.datetime(2026, 6, 24, 21, 59, 5, 591393, tzinfo=TzInfo(0)), provider_name='azure', provider_url='https://platform-dev-1017.openai.azure.com/openai/', provider_details={'finish_reason': 'tool_calls'}, provider_response_id='chatcmpl-DuPubWoXpW3zeJxeEsvpL54q15GeR', finish_reason='tool_call', run_id='019efba4-d886-7040-b6f0-3a81bf59e5a9', conversation_id='019efba4-d886-7040-b6f0-3a8013b71d91')"
+      },
+      {
+        "content": "ModelRequest(parts=[ToolReturnPart(tool_name='use_Knowledge_Retrieval_compliance_guidelines', content={'success': True, 'result': {'query': 'data retention period', 'retrieved_documents': [{'content': 'ds, consistent with compliance standards .:\\n. High Criticality Data with PHI: 6 years / 72 months\\n. High Criticality Data without PHI: 2 years / 24 months\\n. Medium Criticality Logs: 1 year / 12 months. Audit and Access Logs: Minimum of 1 year or per client requirements', 'metadata': {'bounding_region': {'page_number': 3, 'polygon': [{'x': 296.0, 'y': 370.0}, {'x': 858.0, 'y': 370.0}, {'x': 858.0, 'y': 421.0}, {'x': 296.0, 'y': 420.0}]}, 'char_count': 269, 'chunk_index': 1, 'dataset_id': '45e640ac-6d10-454f-8289-8d43d9904dab', 'document_id': '3ac252a7-e9cc-41d9-a219-fbfc875db163', 'file_hash': '9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01', 'file_path': 'kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'index': 1, 'is_active': True, 'page_number': 3, 'source': 'uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'strategy': 'recursive', 'total_chunks': 2}, 'score': 0.6087223}, {'content': 'High Criticality Data\\nwithout PHI\\n3 years\\nMedium Criticality Logs\\n1 Year\\nAudit and Access Logs\\n1 Year\\n7. Data Purge and Deletion Policy\\n7.1 Purge Triggers\\nData is eligible for permanent deletion when:\\n\u00b7 Retention period has expired\\n\u00b7 Client provides written approval or instruction\\n\u00b7 Client contract terminates\\n7.2 Purge Process\\n1. Pre-Purge Review: Confirmation of eligibility and approvals\\n2. Secure Deletion: Data is permanently deleted using industry-accepted secure\\ndeletion methods\\n3. Verification: Deletion is validated to ensure irrecoverability\\n4. Logging: Purge activities are logged for auditability\\n7.3 Exceptions\\n\u00b7 Data under legal hold or regulatory investigation is excluded from purge\\n\u00b7 Exceptions are documented and reviewed periodically\\n7.4 Purge Timelines\\nData Category\\nAutonomize Purge\\nClient requirements\\nHigh Criticality Data with\\nPHI:\\n7 years\\nHigh Criticality Data\\nwithout PHI\\n5 years', 'metadata': {'bounding_region': {'page_number': 5, 'polygon': [{'x': 467.0, 'y': 338.0}, {'x': 923.0, 'y': 338.0}, {'x': 923.0, 'y': 394.0}, {'x': 467.0, 'y': 395.0}]}, 'char_count': 907, 'chunk_index': 0, 'dataset_id': '45e640ac-6d10-454f-8289-8d43d9904dab', 'document_id': '3ac252a7-e9cc-41d9-a219-fbfc875db163', 'file_hash': '9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01', 'file_path': 'kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'index': 0, 'is_active': True, 'page_number': 5, 'source': 'uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'strategy': 'recursive', 'total_chunks': 1}, 'score': 0.58379126}, {'content': 'Retention periods may be adjusted based on:\\n\u00b7 Client-specific requirements\\n\u00b7 Legal holds\\n\u00b7 Active investigations or audits\\n6. Data Archival Process\\n6.1 Archival Triggers\\nData is moved from active systems to archival storage when: - It exceeds defined\\nactive-use retention thresholds - It is no longer required for real-time operations -\\nClient-approved archival milestones are reached\\n6.2 Archival Steps\\n1. Identification: Eligible data is identified based on retention rules and metadata.\\n2. Validation: Data is validated for completeness and integrity prior to archival.\\n3. Encryption: Data is encrypted using 256 bit AES encryption.\\n4. Secure Storage: Archived data is stored in secure, access-controlled archival\\nstorage - We will use Azure Archive Storage (separate from the Production\\nstorage accounts for the archival data) https://learn.microsoft.com/en-\\nus/azure/storage/blobs/access-tiers-overview\\n5. Indexing: Metadata is retained to enable future retrieval for audits or compliance', 'metadata': {'bounding_region': {'page_number': 4, 'polygon': [{'x': 297.0, 'y': 305.0}, {'x': 1319.0, 'y': 305.0}, {'x': 1318.0, 'y': 362.0}, {'x': 297.0, 'y': 361.0}]}, 'char_count': 993, 'chunk_index': 0, 'dataset_id': '45e640ac-6d10-454f-8289-8d43d9904dab', 'document_id': '3ac252a7-e9cc-41d9-a219-fbfc875db163', 'file_hash': '9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01', 'file_path': 'kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'index': 0, 'is_active': True, 'page_number': 4, 'source': 'uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'strategy': 'recursive', 'total_chunks': 2}, 'score': 0.5639845}, {'content': 'orage accounts for the archival data) https://learn.microsoft.com/en-\\nus/azure/storage/blobs/access-tiers-overview\\n5. Indexing: Metadata is retained to enable future retrieval for audits or compliancerequirements.\\n6. Autonomize would follow 30 Calendar days SLA to retrieve the requested audit\\ntrails, and logs.\\n6.3 Access Controls\\n\u00b7 Archived data is not accessible to application users\\n\u00b7 Access is restricted to authorized Autonomize security or compliance personnel\\n. All access events are logged and monitored\\n6.4 Archival Timelines\\nData Category\\nAutonomize archival\\nClient requirements\\nHigh Criticality Data with\\nPHI:\\n5 years', 'metadata': {'bounding_region': {'page_number': 4, 'polygon': [{'x': 371.0, 'y': 405.0}, {'x': 1079.0, 'y': 406.0}, {'x': 1079.0, 'y': 461.0}, {'x': 371.0, 'y': 460.0}]}, 'char_count': 629, 'chunk_index': 1, 'dataset_id': '45e640ac-6d10-454f-8289-8d43d9904dab', 'document_id': '3ac252a7-e9cc-41d9-a219-fbfc875db163', 'file_hash': '9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01', 'file_path': 'kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'index': 1, 'is_active': True, 'page_number': 4, 'source': 'uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'strategy': 'recursive', 'total_chunks': 2}, 'score': 0.55135226}, {'content': \"1. Purpose\\nThis document serves as Autonomize's standard Data Retention, Archival, and Purge\\nPolicy and is intended to: Establish a consistent, auditable baseline for data lifecycle\\nmanagement across engagements\\nClient-specific deviations, if any, will be documented separately as part of contractual\\nagreements, Order Forms, or Statements of Work (SOWs).\\nThe purpose of this policy is to define Autonomize's approach to data retention,\\narchival, purge, and audit support to ensure:\\n\u00b7 Protection of sensitive and regulated data (including PHI)\\n\u00b7 Compliance with HIPAA, contractual obligations, and client-specific\\nrequirements - Operational efficiency and risk reduction\\n. Transparency with clients regarding how data is handled throughout its lifecycle\\n2. Scope\\nThis policy applies to all data processed, stored, transmitted, or logged by Autonomize\\nsystems, including but not limited to:\\n\u00b7 Clinical and operational data\\n\u00b7 Platform metadata, solution, and audit logs\\n\u00b7 Al/ML artifacts\", 'metadata': {'bounding_region': {'page_number': 2, 'polygon': [{'x': 303.0, 'y': 416.0}, {'x': 625.0, 'y': 418.0}, {'x': 625.0, 'y': 486.0}, {'x': 302.0, 'y': 485.0}]}, 'char_count': 985, 'chunk_index': 0, 'dataset_id': '45e640ac-6d10-454f-8289-8d43d9904dab', 'document_id': '3ac252a7-e9cc-41d9-a219-fbfc875db163', 'file_hash': '9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01', 'file_path': 'kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'index': 0, 'is_active': True, 'page_number': 2, 'source': 'uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'strategy': 'recursive', 'total_chunks': 2}, 'score': 0.52955246}, {'content': '5. Audit Readiness: Maintain the ability to support audits through controlled,\\ntime-bound data access.\\n4. Data Classification and Inventory (Saas implementation)\\nThe following data sources are maintained by Autonomize for the Client to fulfill the\\nscope of work.\\nData Source\\nData\\nCriticality\\nPHI\\nIncluded\\nFaxes\\nHigh\\nYes\\nEHR Data\\nHigh\\nYes\\nData extracted by\\nAutonomize systems\\nHigh\\nYes\\nAzure OpenAl Logs\\nHigh\\nYes\\nAzure Document\\nIntelligence Logs\\nHigh\\nYes\\nPlatform Metadata\\nMedium\\nNo\\nPlatform Logs\\nHigh\\nNo\\nSolution Logs\\nHigh\\nYes\\nAudit Logs - Client API\\nAccess\\nHigh\\nYes\\nDatabase Access Logs\\nHigh\\nNo\\n5. Data Retention Policy\\n5.1 Retention Timeframes (Default)\\nUnless otherwise defined by client contract, Autonomize applies the following default\\nretention periods, consistent with compliance standards .:\\n. High Criticality Data with PHI: 6 years / 72 months\\n. High Criticality Data without PHI: 2 years / 24 months\\n. Medium Criticality Logs: 1 year / 12 months', 'metadata': {'bounding_region': {'page_number': 3, 'polygon': [{'x': 447.0, 'y': 305.0}, {'x': 2152.0, 'y': 306.0}, {'x': 2152.0, 'y': 363.0}, {'x': 447.0, 'y': 359.0}]}, 'char_count': 956, 'chunk_index': 0, 'dataset_id': '45e640ac-6d10-454f-8289-8d43d9904dab', 'document_id': '3ac252a7-e9cc-41d9-a219-fbfc875db163', 'file_hash': '9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01', 'file_path': 'kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'index': 0, 'is_active': True, 'page_number': 3, 'source': 'uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'strategy': 'recursive', 'total_chunks': 2}, 'score': 0.5000388}, {'content': 'Autonomize\\nData Retention, Archival,\\nand Purge Policy\\nData Retention, Archival,\\nand Purge Policy\\n1. Purpose\\n2. Scope\\n3. Guiding Principles\\n4. Data Classification and Inventory (Saas implementation)\\n5.1 Retention Timeframes (Default)\\n6. Data Archival Process\\n6.1 Archival Triggers\\n6.2 Archival Steps\\n6.3 Access Controls\\n6.4 Archival Timelines\\n7. Data Purge and Deletion Policy\\n7.1 Purge Triggers\\n7.2 Purge Process\\n7.3 Exceptions\\n7.4 Purge Timelines\\n8. Audit and Compliance Support\\n8.1 Audit Access Support\\n8.2 Audit Assistance Scope\\n9. Roles and Responsibilities\\n10. Policy Review and Updates\\n11. Project Sign-Off and Client Acknowledgment\\n12. Policy Approval', 'metadata': {'bounding_region': {'page_number': 1, 'polygon': [{'x': 885.0, 'y': 312.0}, {'x': 1668.0, 'y': 329.0}, {'x': 1667.0, 'y': 454.0}, {'x': 885.0, 'y': 449.0}]}, 'char_count': 658, 'chunk_index': 0, 'dataset_id': '45e640ac-6d10-454f-8289-8d43d9904dab', 'document_id': '3ac252a7-e9cc-41d9-a219-fbfc875db163', 'file_hash': '9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01', 'file_path': 'kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'index': 0, 'is_active': True, 'page_number': 1, 'source': 'uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'strategy': 'recursive', 'total_chunks': 1}, 'score': 0.4795099}, {'content': ' all data processed, stored, transmitted, or logged by Autonomize\\nsystems, including but not limited to:\\n\u00b7 Clinical and operational data\\n\u00b7 Platform metadata, solution, and audit logs\\n\u00b7 Al/ML artifacts. Client-provided data sources and downstream extracts\\n3. Guiding Principles\\nAutonomize follows these core principles for data lifecycle management:\\n1. Data Retention Limitation: Retain data only for the minimum period necessary\\nto meet business, legal, regulatory, and contractual requirements.\\n2. Security by Design: Protect data at rest, in transit, and during archival using\\nindustry-standard encryption.\\n3. Least Privilege Access: Restrict access to retained or archived data to\\nauthorized personnel only.\\n4. Client Transparency: Clearly define ownership, retention timelines, and purge\\nmechanisms.', 'metadata': {'bounding_region': {'page_number': 2, 'polygon': [{'x': 295.0, 'y': 531.0}, {'x': 2203.0, 'y': 531.0}, {'x': 2203.0, 'y': 588.0}, {'x': 295.0, 'y': 586.0}]}, 'char_count': 803, 'chunk_index': 1, 'dataset_id': '45e640ac-6d10-454f-8289-8d43d9904dab', 'document_id': '3ac252a7-e9cc-41d9-a219-fbfc875db163', 'file_hash': '9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01', 'file_path': 'kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'index': 1, 'is_active': True, 'page_number': 2, 'source': 'uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'strategy': 'recursive', 'total_chunks': 2}, 'score': 0.4543879}, {'content': \"11. Project Sign-Off and Client Acknowledgment\\nThis policy forms part of the project sign-off and operational readiness documentation.\\nBy signing off on the project, the client acknowledges: - Review and acceptance of\\nAutonomize's Data Retention, Archival, and Purge Policy - Understanding of default\\nretention timelines and purge mechanisms - Agreement that any deviations will be\\ndocumented separately\\n12. Policy Approval\\nApproved By: Autonomize Security & Compliance Team\\nEffective Date: TBD\\nApplies To: All Clients and Engagements\\nReview Cycle: Annual or as required\", 'metadata': {'bounding_region': {'page_number': 7, 'polygon': [{'x': 300.0, 'y': 410.0}, {'x': 1750.0, 'y': 411.0}, {'x': 1750.0, 'y': 487.0}, {'x': 300.0, 'y': 487.0}]}, 'char_count': 570, 'chunk_index': 0, 'dataset_id': '45e640ac-6d10-454f-8289-8d43d9904dab', 'document_id': '3ac252a7-e9cc-41d9-a219-fbfc875db163', 'file_hash': '9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01', 'file_path': 'kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'index': 0, 'is_active': True, 'page_number': 7, 'source': 'uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'strategy': 'recursive', 'total_chunks': 1}, 'score': 0.43325925}, {'content': 'Medium Criticality Logs\\n2 Years\\nAudit and Access Logs\\n1 Year\\n8. Audit and Compliance Support\\nAutonomize supports client, regulatory, and third-party audits through a controlled\\nprocess.\\n8.1 Audit Access Support\\n\u00b7 Time-bound, read-only access to required data\\n\u00b7 Secure data extracts when direct access is not appropriate\\n\u00b7 Redaction or masking applied where feasible\\n8.2 Audit Assistance Scope\\n\u00b7 Data retrieval from active or archived storage\\n\u00b7 Validation of data lineage and integrity\\n\u00b7 Evidence of access logs, retention, and purge activities\\n9. Roles and Responsibilities\\n\u00b7 Autonomize Security & Compliance: Policy enforcement, audits, and exception\\nhandling\\n\u00b7 Autonomize Operations: Execution of retention, archival, and purge processes\\n. Client Stakeholders: Approval of retention deviations and purge instructions\\n. Third-Party Auditors: Limited, supervised access as approved\\n10. Policy Review and Updates\\nThis policy is reviewed at least annually or upon: - Regulatory or compliance changes -', 'metadata': {'bounding_region': {'page_number': 6, 'polygon': [{'x': 466.0, 'y': 338.0}, {'x': 1001.0, 'y': 338.0}, {'x': 1001.0, 'y': 395.0}, {'x': 465.0, 'y': 393.0}]}, 'char_count': 999, 'chunk_index': 0, 'dataset_id': '45e640ac-6d10-454f-8289-8d43d9904dab', 'document_id': '3ac252a7-e9cc-41d9-a219-fbfc875db163', 'file_hash': '9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01', 'file_path': 'kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'index': 0, 'is_active': True, 'page_number': 6, 'source': 'uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf', 'strategy': 'recursive', 'total_chunks': 2}, 'score': 0.4203211}], 'context': \"ds, consistent with compliance standards .:\\n. High Criticality Data with PHI: 6 years / 72 months\\n. High Criticality Data without PHI: 2 years / 24 months\\n. Medium Criticality Logs: 1 year / 12 months. Audit and Access Logs: Minimum of 1 year or per client requirements\\n\\nHigh Criticality Data\\nwithout PHI\\n3 years\\nMedium Criticality Logs\\n1 Year\\nAudit and Access Logs\\n1 Year\\n7. Data Purge and Deletion Policy\\n7.1 Purge Triggers\\nData is eligible for permanent deletion when:\\n\u00b7 Retention period has expired\\n\u00b7 Client provides written approval or instruction\\n\u00b7 Client contract terminates\\n7.2 Purge Process\\n1. Pre-Purge Review: Confirmation of eligibility and approvals\\n2. Secure Deletion: Data is permanently deleted using industry-accepted secure\\ndeletion methods\\n3. Verification: Deletion is validated to ensure irrecoverability\\n4. Logging: Purge activities are logged for auditability\\n7.3 Exceptions\\n\u00b7 Data under legal hold or regulatory investigation is excluded from purge\\n\u00b7 Exceptions are documented and reviewed periodically\\n7.4 Purge Timelines\\nData Category\\nAutonomize Purge\\nClient requirements\\nHigh Criticality Data with\\nPHI:\\n7 years\\nHigh Criticality Data\\nwithout PHI\\n5 years\\n\\nRetention periods may be adjusted based on:\\n\u00b7 Client-specific requirements\\n\u00b7 Legal holds\\n\u00b7 Active investigations or audits\\n6. Data Archival Process\\n6.1 Archival Triggers\\nData is moved from active systems to archival storage when: - It exceeds defined\\nactive-use retention thresholds - It is no longer required for real-time operations -\\nClient-approved archival milestones are reached\\n6.2 Archival Steps\\n1. Identification: Eligible data is identified based on retention rules and metadata.\\n2. Validation: Data is validated for completeness and integrity prior to archival.\\n3. Encryption: Data is encrypted using 256 bit AES encryption.\\n4. Secure Storage: Archived data is stored in secure, access-controlled archival\\nstorage - We will use Azure Archive Storage (separate from the Production\\nstorage accounts for the archival data) https://learn.microsoft.com/en-\\nus/azure/storage/blobs/access-tiers-overview\\n5. Indexing: Metadata is retained to enable future retrieval for audits or compliance\\n\\norage accounts for the archival data) https://learn.microsoft.com/en-\\nus/azure/storage/blobs/access-tiers-overview\\n5. Indexing: Metadata is retained to enable future retrieval for audits or compliancerequirements.\\n6. Autonomize would follow 30 Calendar days SLA to retrieve the requested audit\\ntrails, and logs.\\n6.3 Access Controls\\n\u00b7 Archived data is not accessible to application users\\n\u00b7 Access is restricted to authorized Autonomize security or compliance personnel\\n. All access events are logged and monitored\\n6.4 Archival Timelines\\nData Category\\nAutonomize archival\\nClient requirements\\nHigh Criticality Data with\\nPHI:\\n5 years\\n\\n1. Purpose\\nThis document serves as Autonomize's standard Data Retention, Archival, and Purge\\nPolicy and is intended to: Establish a consistent, auditable baseline for data lifecycle\\nmanagement across engagements\\nClient-specific deviations, if any, will be documented separately as part of contractual\\nagreements, Order Forms, or Statements of Work (SOWs).\\nThe purpose of this policy is to define Autonomize's approach to data retention,\\narchival, purge, and audit support to ensure:\\n\u00b7 Protection of sensitive and regulated data (including PHI)\\n\u00b7 Compliance with HIPAA, contractual obligations, and client-specific\\nrequirements - Operational efficiency and risk reduction\\n. Transparency with clients regarding how data is handled throughout its lifecycle\\n2. Scope\\nThis policy applies to all data processed, stored, transmitted, or logged by Autonomize\\nsystems, including but not limited to:\\n\u00b7 Clinical and operational data\\n\u00b7 Platform metadata, solution, and audit logs\\n\u00b7 Al/ML artifacts\\n\\n5. Audit Readiness: Maintain the ability to support audits through controlled,\\ntime-bound data access.\\n4. Data Classification and Inventory (Saas implementation)\\nThe following data sources are maintained by Autonomize for the Client to fulfill the\\nscope of work.\\nData Source\\nData\\nCriticality\\nPHI\\nIncluded\\nFaxes\\nHigh\\nYes\\nEHR Data\\nHigh\\nYes\\nData extracted by\\nAutonomize systems\\nHigh\\nYes\\nAzure OpenAl Logs\\nHigh\\nYes\\nAzure Document\\nIntelligence Logs\\nHigh\\nYes\\nPlatform Metadata\\nMedium\\nNo\\nPlatform Logs\\nHigh\\nNo\\nSolution Logs\\nHigh\\nYes\\nAudit Logs - Client API\\nAccess\\nHigh\\nYes\\nDatabase Access Logs\\nHigh\\nNo\\n5. Data Retention Policy\\n5.1 Retention Timeframes (Default)\\nUnless otherwise defined by client contract, Autonomize applies the following default\\nretention periods, consistent with compliance standards .:\\n. High Criticality Data with PHI: 6 years / 72 months\\n. High Criticality Data without PHI: 2 years / 24 months\\n. Medium Criticality Logs: 1 year / 12 months\\n\\nAutonomize\\nData Retention, Archival,\\nand Purge Policy\\nData Retention, Archival,\\nand Purge Policy\\n1. Purpose\\n2. Scope\\n3. Guiding Principles\\n4. Data Classification and Inventory (Saas implementation)\\n5.1 Retention Timeframes (Default)\\n6. Data Archival Process\\n6.1 Archival Triggers\\n6.2 Archival Steps\\n6.3 Access Controls\\n6.4 Archival Timelines\\n7. Data Purge and Deletion Policy\\n7.1 Purge Triggers\\n7.2 Purge Process\\n7.3 Exceptions\\n7.4 Purge Timelines\\n8. Audit and Compliance Support\\n8.1 Audit Access Support\\n8.2 Audit Assistance Scope\\n9. Roles and Responsibilities\\n10. Policy Review and Updates\\n11. Project Sign-Off and Client Acknowledgment\\n12. Policy Approval\\n\\n all data processed, stored, transmitted, or logged by Autonomize\\nsystems, including but not limited to:\\n\u00b7 Clinical and operational data\\n\u00b7 Platform metadata, solution, and audit logs\\n\u00b7 Al/ML artifacts. Client-provided data sources and downstream extracts\\n3. Guiding Principles\\nAutonomize follows these core principles for data lifecycle management:\\n1. Data Retention Limitation: Retain data only for the minimum period necessary\\nto meet business, legal, regulatory, and contractual requirements.\\n2. Security by Design: Protect data at rest, in transit, and during archival using\\nindustry-standard encryption.\\n3. Least Privilege Access: Restrict access to retained or archived data to\\nauthorized personnel only.\\n4. Client Transparency: Clearly define ownership, retention timelines, and purge\\nmechanisms.\\n\\n11. Project Sign-Off and Client Acknowledgment\\nThis policy forms part of the project sign-off and operational readiness documentation.\\nBy signing off on the project, the client acknowledges: - Review and acceptance of\\nAutonomize's Data Retention, Archival, and Purge Policy - Understanding of default\\nretention timelines and purge mechanisms - Agreement that any deviations will be\\ndocumented separately\\n12. Policy Approval\\nApproved By: Autonomize Security & Compliance Team\\nEffective Date: TBD\\nApplies To: All Clients and Engagements\\nReview Cycle: Annual or as required\\n\\nMedium Criticality Logs\\n2 Years\\nAudit and Access Logs\\n1 Year\\n8. Audit and Compliance Support\\nAutonomize supports client, regulatory, and third-party audits through a controlled\\nprocess.\\n8.1 Audit Access Support\\n\u00b7 Time-bound, read-only access to required data\\n\u00b7 Secure data extracts when direct access is not appropriate\\n\u00b7 Redaction or masking applied where feasible\\n8.2 Audit Assistance Scope\\n\u00b7 Data retrieval from active or archived storage\\n\u00b7 Validation of data lineage and integrity\\n\u00b7 Evidence of access logs, retention, and purge activities\\n9. Roles and Responsibilities\\n\u00b7 Autonomize Security & Compliance: Policy enforcement, audits, and exception\\nhandling\\n\u00b7 Autonomize Operations: Execution of retention, archival, and purge processes\\n. Client Stakeholders: Approval of retention deviations and purge instructions\\n. Third-Party Auditors: Limited, supervised access as approved\\n10. Policy Review and Updates\\nThis policy is reviewed at least annually or upon: - Regulatory or compliance changes -\", 'count': 10}, 'error': None, 'metadata': {'component_id': '26bea2c0-259d-4db2-9a22-e3f827594132', 'execution_time': 'measured_at_runtime', 'component_status': 'healthy'}}, tool_call_id='call_f3PE5yuWV6hwyIahiswtMucV', timestamp=datetime.datetime(2026, 6, 24, 21, 59, 6, 406954, tzinfo=datetime.timezone.utc))], timestamp=datetime.datetime(2026, 6, 24, 21, 59, 6, 624997, tzinfo=datetime.timezone.utc), instructions='You are a Compliance and security policy expert. Your tone should be professional.\\n\\nYou are a compliance and security policy expert. You answer questions about company guidelines, policies, and procedures by searching the organization\\'s guideline document knowledge base.\\n## Workflow 1. Analyze the user\\'s question to identify relevant policy areas. 2. Use the Knowledge Retrieval tool to retrieve relevant guideline sections. 3. Synthesize a clear, accurate answer grounded ONLY in the retrieved content.\\n## Citation Rules - ALWAYS cite the specific source document and section for every claim. - Format citations as: [Source: <document name>, <section/page>] - If multiple sections support an answer, cite all of them. - If retrieved content does not contain enough information, say so explicitly.\\n  Do NOT fabricate or infer policy details.\\n\\n## Answer Format - Lead with a direct yes/no or summary answer. - Follow with supporting details and policy references. - Use bullet points for multi-part answers. - Quote exact policy language when relevant.\\n## Rules - ONLY use information from retrieved guideline content \u00e2\u20ac\u201d NO HALLUCINATION. - If the question is outside the scope of available guidelines, state that clearly. - Be precise with policy language \u00e2\u20ac\u201d do not paraphrase in ways that change meaning.\\n\\n\\nYou are an AI Agent designed to respond to user queries in the most optimal, clear, and accurate manner.\\n\\nGeneral Behavior:\\n- Provide concise, structured, and correct responses.\\n- Ask clarifying questions only when necessary.\\n- Do not add unnecessary information.\\n- Be transparent about limitations.\\n\\nAlways aim for maximum usefulness with minimal verbosity.\\n\\nConnected External Tools:\\nThe following external tools are specifically connected to you for this session:\\n- Knowledge Retrieval: Search compliance guideline documents from Knowledge Center\\n\\nWhen Asked About Connected or External Tools:\\n- Refer ONLY to the tools listed in the \"Connected External Tools\" section above.\\n- Do not report tools beyond those explicitly listed there.\\n- Do not infer, assume, or fabricate tools based on your training knowledge or function schemas.\\n- Use EXACTLY the name and description listed \u2014 do NOT expand, elaborate, or supplement with details from function signatures, docstrings, or API schemas.\\n- Do NOT enumerate individual sub-capabilities, operations, or functions of a tool \u2014 report only the top-level name and description as provided.\\n- Clearly distinguish between your native capabilities (reasoning, writing, coding, analysis) and these externally connected tools.\\n\\nWhen Asked About Your Capabilities:\\n- List your core capabilities (reasoning, writing, coding, analysis, etc.).\\n- Then list ONLY the additional capabilities enabled by the externally connected tools listed above, using exactly the provided descriptions.\\n- Never fabricate, infer, or assume the existence of tools not listed in the Connected External Tools section.\\n- Never expand tool descriptions beyond what is explicitly listed in the Connected External Tools section.', run_id='019efba4-d886-7040-b6f0-3a81bf59e5a9', conversation_id='019efba4-d886-7040-b6f0-3a8013b71d91')"
+      },
+      {
+        "content": "ModelResponse(parts=[TextPart(content='Summary answer: The data retention period depends on data type and criticality. Default retention periods are:\\n\\n- High Criticality Data with PHI: 6 years (72 months)\\n- High Criticality Data without PHI: 2 years (24 months)\\n- Medium Criticality Logs: 1 year (12 months)\\n- Audit and Access Logs: Minimum of 1 year or per client requirements\\n\\nSupporting details and policy references:\\n- \"Unless otherwise defined by client contract, Autonomize applies the following default retention periods, consistent with compliance standards: High Criticality Data with PHI: 6 years / 72 months; High Criticality Data without PHI: 2 years / 24 months; Medium Criticality Logs: 1 year / 12 months. Audit and Access Logs: Minimum of 1 year or per client requirements.\" [Source: Autonomize \u2013 Data Retention, Archival, And Purge Policy, Section 5.1 Retention Timeframes (Default), page 3]\\n- Retention periods may be adjusted based on client-specific requirements, legal holds, or active investigations/audits. [Source: Autonomize \u2013 Data Retention, Archival, And Purge Policy, page 4]\\n\\nIf you need retention periods for a specific data category or have client-specific requirements, please clarify.')], usage=RequestUsage(input_tokens=7713, output_tokens=273, details={'accepted_prediction_tokens': 0, 'audio_tokens': 0, 'reasoning_tokens': 0, 'rejected_prediction_tokens': 0}), model_name='gpt-4.1-2025-04-14', timestamp=datetime.datetime(2026, 6, 24, 21, 59, 7, 413757, tzinfo=TzInfo(0)), provider_name='azure', provider_url='https://platform-dev-1017.openai.azure.com/openai/', provider_details={'finish_reason': 'stop'}, provider_response_id='chatcmpl-DuPudxxYHzDs4NksX6Qrh4sLre0X4', finish_reason='stop', run_id='019efba4-d886-7040-b6f0-3a81bf59e5a9', conversation_id='019efba4-d886-7040-b6f0-3a8013b71d91')"
+      }
+    ],
+    "new_messages": [
+      {
+        "parts": [
+          {
+            "content": "Execution context:\n  message: What is the data retention period?\n  organization_id: 16a74ae7-32e9-46e7-9250-2a307dfd6252\n  project_id: 4df068e6-4d6b-432d-b337-df98d2a428af\n  user_id: 747f5fec-a666-4b82-8db1-4dd5f5e62abb\n\nWhat is the data retention period?\n\nExecution context:\n  message: What is the data retention period?\n  organization_id: 16a74ae7-32e9-46e7-9250-2a307dfd6252\n  project_id: 4df068e6-4d6b-432d-b337-df98d2a428af\n  user_id: 747f5fec-a666-4b82-8db1-4dd5f5e62abb",
+            "timestamp": "2026-06-24T21:59:05.095666Z",
+            "part_kind": "user-prompt"
+          }
+        ],
+        "timestamp": "2026-06-24T21:59:05.095825Z",
+        "instructions": "You are a Compliance and security policy expert. Your tone should be professional.\n\nYou are a compliance and security policy expert. You answer questions about company guidelines, policies, and procedures by searching the organization's guideline document knowledge base.\n## Workflow 1. Analyze the user's question to identify relevant policy areas. 2. Use the Knowledge Retrieval tool to retrieve relevant guideline sections. 3. Synthesize a clear, accurate answer grounded ONLY in the retrieved content.\n## Citation Rules - ALWAYS cite the specific source document and section for every claim. - Format citations as: [Source: <document name>, <section/page>] - If multiple sections support an answer, cite all of them. - If retrieved content does not contain enough information, say so explicitly.\n  Do NOT fabricate or infer policy details.\n\n## Answer Format - Lead with a direct yes/no or summary answer. - Follow with supporting details and policy references. - Use bullet points for multi-part answers. - Quote exact policy language when relevant.\n## Rules - ONLY use information from retrieved guideline content \u00e2\u20ac\u201d NO HALLUCINATION. - If the question is outside the scope of available guidelines, state that clearly. - Be precise with policy language \u00e2\u20ac\u201d do not paraphrase in ways that change meaning.\n\n\nYou are an AI Agent designed to respond to user queries in the most optimal, clear, and accurate manner.\n\nGeneral Behavior:\n- Provide concise, structured, and correct responses.\n- Ask clarifying questions only when necessary.\n- Do not add unnecessary information.\n- Be transparent about limitations.\n\nAlways aim for maximum usefulness with minimal verbosity.\n\nConnected External Tools:\nThe following external tools are specifically connected to you for this session:\n- Knowledge Retrieval: Search compliance guideline documents from Knowledge Center\n\nWhen Asked About Connected or External Tools:\n- Refer ONLY to the tools listed in the \"Connected External Tools\" section above.\n- Do not report tools beyond those explicitly listed there.\n- Do not infer, assume, or fabricate tools based on your training knowledge or function schemas.\n- Use EXACTLY the name and description listed \u2014 do NOT expand, elaborate, or supplement with details from function signatures, docstrings, or API schemas.\n- Do NOT enumerate individual sub-capabilities, operations, or functions of a tool \u2014 report only the top-level name and description as provided.\n- Clearly distinguish between your native capabilities (reasoning, writing, coding, analysis) and these externally connected tools.\n\nWhen Asked About Your Capabilities:\n- List your core capabilities (reasoning, writing, coding, analysis, etc.).\n- Then list ONLY the additional capabilities enabled by the externally connected tools listed above, using exactly the provided descriptions.\n- Never fabricate, infer, or assume the existence of tools not listed in the Connected External Tools section.\n- Never expand tool descriptions beyond what is explicitly listed in the Connected External Tools section.",
+        "kind": "request",
+        "run_id": "019efba4-d886-7040-b6f0-3a81bf59e5a9",
+        "conversation_id": "019efba4-d886-7040-b6f0-3a8013b71d91",
+        "metadata": null
+      },
+      {
+        "parts": [
+          {
+            "tool_name": "use_Knowledge_Retrieval_compliance_guidelines",
+            "args": "{\"query\":\"data retention period\",\"knowledge_source\":\"project\"}",
+            "tool_call_id": "call_f3PE5yuWV6hwyIahiswtMucV",
+            "tool_kind": null,
+            "id": null,
+            "provider_name": null,
+            "provider_details": null,
+            "part_kind": "tool-call"
+          }
+        ],
+        "usage": {
+          "input_tokens": 1048,
+          "cache_write_tokens": 0,
+          "cache_read_tokens": 0,
+          "output_tokens": 31,
+          "input_audio_tokens": 0,
+          "cache_audio_read_tokens": 0,
+          "output_audio_tokens": 0,
+          "details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "model_name": "gpt-4.1-2025-04-14",
+        "timestamp": "2026-06-24T21:59:05.591393Z",
+        "kind": "response",
+        "provider_name": "azure",
+        "provider_url": "https://platform-dev-1017.openai.azure.com/openai/",
+        "provider_details": {
+          "finish_reason": "tool_calls"
+        },
+        "provider_response_id": "chatcmpl-DuPubWoXpW3zeJxeEsvpL54q15GeR",
+        "finish_reason": "tool_call",
+        "run_id": "019efba4-d886-7040-b6f0-3a81bf59e5a9",
+        "conversation_id": "019efba4-d886-7040-b6f0-3a8013b71d91",
+        "metadata": null,
+        "state": "complete"
+      },
+      {
+        "parts": [
+          {
+            "tool_name": "use_Knowledge_Retrieval_compliance_guidelines",
+            "content": {
+              "success": true,
+              "result": {
+                "query": "data retention period",
+                "retrieved_documents": [
+                  {
+                    "content": "ds, consistent with compliance standards .:\n. High Criticality Data with PHI: 6 years / 72 months\n. High Criticality Data without PHI: 2 years / 24 months\n. Medium Criticality Logs: 1 year / 12 months. Audit and Access Logs: Minimum of 1 year or per client requirements",
+                    "metadata": {
+                      "bounding_region": {
+                        "page_number": 3,
+                        "polygon": [
+                          {
+                            "x": 296.0,
+                            "y": 370.0
+                          },
+                          {
+                            "x": 858.0,
+                            "y": 370.0
+                          },
+                          {
+                            "x": 858.0,
+                            "y": 421.0
+                          },
+                          {
+                            "x": 296.0,
+                            "y": 420.0
+                          }
+                        ]
+                      },
+                      "char_count": 269,
+                      "chunk_index": 1,
+                      "dataset_id": "45e640ac-6d10-454f-8289-8d43d9904dab",
+                      "document_id": "3ac252a7-e9cc-41d9-a219-fbfc875db163",
+                      "file_hash": "9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01",
+                      "file_path": "kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "index": 1,
+                      "is_active": true,
+                      "page_number": 3,
+                      "source": "uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "strategy": "recursive",
+                      "total_chunks": 2
+                    },
+                    "score": 0.6087223
+                  },
+                  {
+                    "content": "High Criticality Data\nwithout PHI\n3 years\nMedium Criticality Logs\n1 Year\nAudit and Access Logs\n1 Year\n7. Data Purge and Deletion Policy\n7.1 Purge Triggers\nData is eligible for permanent deletion when:\n\u00b7 Retention period has expired\n\u00b7 Client provides written approval or instruction\n\u00b7 Client contract terminates\n7.2 Purge Process\n1. Pre-Purge Review: Confirmation of eligibility and approvals\n2. Secure Deletion: Data is permanently deleted using industry-accepted secure\ndeletion methods\n3. Verification: Deletion is validated to ensure irrecoverability\n4. Logging: Purge activities are logged for auditability\n7.3 Exceptions\n\u00b7 Data under legal hold or regulatory investigation is excluded from purge\n\u00b7 Exceptions are documented and reviewed periodically\n7.4 Purge Timelines\nData Category\nAutonomize Purge\nClient requirements\nHigh Criticality Data with\nPHI:\n7 years\nHigh Criticality Data\nwithout PHI\n5 years",
+                    "metadata": {
+                      "bounding_region": {
+                        "page_number": 5,
+                        "polygon": [
+                          {
+                            "x": 467.0,
+                            "y": 338.0
+                          },
+                          {
+                            "x": 923.0,
+                            "y": 338.0
+                          },
+                          {
+                            "x": 923.0,
+                            "y": 394.0
+                          },
+                          {
+                            "x": 467.0,
+                            "y": 395.0
+                          }
+                        ]
+                      },
+                      "char_count": 907,
+                      "chunk_index": 0,
+                      "dataset_id": "45e640ac-6d10-454f-8289-8d43d9904dab",
+                      "document_id": "3ac252a7-e9cc-41d9-a219-fbfc875db163",
+                      "file_hash": "9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01",
+                      "file_path": "kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "index": 0,
+                      "is_active": true,
+                      "page_number": 5,
+                      "source": "uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "strategy": "recursive",
+                      "total_chunks": 1
+                    },
+                    "score": 0.58379126
+                  },
+                  {
+                    "content": "Retention periods may be adjusted based on:\n\u00b7 Client-specific requirements\n\u00b7 Legal holds\n\u00b7 Active investigations or audits\n6. Data Archival Process\n6.1 Archival Triggers\nData is moved from active systems to archival storage when: - It exceeds defined\nactive-use retention thresholds - It is no longer required for real-time operations -\nClient-approved archival milestones are reached\n6.2 Archival Steps\n1. Identification: Eligible data is identified based on retention rules and metadata.\n2. Validation: Data is validated for completeness and integrity prior to archival.\n3. Encryption: Data is encrypted using 256 bit AES encryption.\n4. Secure Storage: Archived data is stored in secure, access-controlled archival\nstorage - We will use Azure Archive Storage (separate from the Production\nstorage accounts for the archival data) https://learn.microsoft.com/en-\nus/azure/storage/blobs/access-tiers-overview\n5. Indexing: Metadata is retained to enable future retrieval for audits or compliance",
+                    "metadata": {
+                      "bounding_region": {
+                        "page_number": 4,
+                        "polygon": [
+                          {
+                            "x": 297.0,
+                            "y": 305.0
+                          },
+                          {
+                            "x": 1319.0,
+                            "y": 305.0
+                          },
+                          {
+                            "x": 1318.0,
+                            "y": 362.0
+                          },
+                          {
+                            "x": 297.0,
+                            "y": 361.0
+                          }
+                        ]
+                      },
+                      "char_count": 993,
+                      "chunk_index": 0,
+                      "dataset_id": "45e640ac-6d10-454f-8289-8d43d9904dab",
+                      "document_id": "3ac252a7-e9cc-41d9-a219-fbfc875db163",
+                      "file_hash": "9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01",
+                      "file_path": "kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "index": 0,
+                      "is_active": true,
+                      "page_number": 4,
+                      "source": "uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "strategy": "recursive",
+                      "total_chunks": 2
+                    },
+                    "score": 0.5639845
+                  },
+                  {
+                    "content": "orage accounts for the archival data) https://learn.microsoft.com/en-\nus/azure/storage/blobs/access-tiers-overview\n5. Indexing: Metadata is retained to enable future retrieval for audits or compliancerequirements.\n6. Autonomize would follow 30 Calendar days SLA to retrieve the requested audit\ntrails, and logs.\n6.3 Access Controls\n\u00b7 Archived data is not accessible to application users\n\u00b7 Access is restricted to authorized Autonomize security or compliance personnel\n. All access events are logged and monitored\n6.4 Archival Timelines\nData Category\nAutonomize archival\nClient requirements\nHigh Criticality Data with\nPHI:\n5 years",
+                    "metadata": {
+                      "bounding_region": {
+                        "page_number": 4,
+                        "polygon": [
+                          {
+                            "x": 371.0,
+                            "y": 405.0
+                          },
+                          {
+                            "x": 1079.0,
+                            "y": 406.0
+                          },
+                          {
+                            "x": 1079.0,
+                            "y": 461.0
+                          },
+                          {
+                            "x": 371.0,
+                            "y": 460.0
+                          }
+                        ]
+                      },
+                      "char_count": 629,
+                      "chunk_index": 1,
+                      "dataset_id": "45e640ac-6d10-454f-8289-8d43d9904dab",
+                      "document_id": "3ac252a7-e9cc-41d9-a219-fbfc875db163",
+                      "file_hash": "9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01",
+                      "file_path": "kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "index": 1,
+                      "is_active": true,
+                      "page_number": 4,
+                      "source": "uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "strategy": "recursive",
+                      "total_chunks": 2
+                    },
+                    "score": 0.55135226
+                  },
+                  {
+                    "content": "1. Purpose\nThis document serves as Autonomize's standard Data Retention, Archival, and Purge\nPolicy and is intended to: Establish a consistent, auditable baseline for data lifecycle\nmanagement across engagements\nClient-specific deviations, if any, will be documented separately as part of contractual\nagreements, Order Forms, or Statements of Work (SOWs).\nThe purpose of this policy is to define Autonomize's approach to data retention,\narchival, purge, and audit support to ensure:\n\u00b7 Protection of sensitive and regulated data (including PHI)\n\u00b7 Compliance with HIPAA, contractual obligations, and client-specific\nrequirements - Operational efficiency and risk reduction\n. Transparency with clients regarding how data is handled throughout its lifecycle\n2. Scope\nThis policy applies to all data processed, stored, transmitted, or logged by Autonomize\nsystems, including but not limited to:\n\u00b7 Clinical and operational data\n\u00b7 Platform metadata, solution, and audit logs\n\u00b7 Al/ML artifacts",
+                    "metadata": {
+                      "bounding_region": {
+                        "page_number": 2,
+                        "polygon": [
+                          {
+                            "x": 303.0,
+                            "y": 416.0
+                          },
+                          {
+                            "x": 625.0,
+                            "y": 418.0
+                          },
+                          {
+                            "x": 625.0,
+                            "y": 486.0
+                          },
+                          {
+                            "x": 302.0,
+                            "y": 485.0
+                          }
+                        ]
+                      },
+                      "char_count": 985,
+                      "chunk_index": 0,
+                      "dataset_id": "45e640ac-6d10-454f-8289-8d43d9904dab",
+                      "document_id": "3ac252a7-e9cc-41d9-a219-fbfc875db163",
+                      "file_hash": "9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01",
+                      "file_path": "kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "index": 0,
+                      "is_active": true,
+                      "page_number": 2,
+                      "source": "uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "strategy": "recursive",
+                      "total_chunks": 2
+                    },
+                    "score": 0.52955246
+                  },
+                  {
+                    "content": "5. Audit Readiness: Maintain the ability to support audits through controlled,\ntime-bound data access.\n4. Data Classification and Inventory (Saas implementation)\nThe following data sources are maintained by Autonomize for the Client to fulfill the\nscope of work.\nData Source\nData\nCriticality\nPHI\nIncluded\nFaxes\nHigh\nYes\nEHR Data\nHigh\nYes\nData extracted by\nAutonomize systems\nHigh\nYes\nAzure OpenAl Logs\nHigh\nYes\nAzure Document\nIntelligence Logs\nHigh\nYes\nPlatform Metadata\nMedium\nNo\nPlatform Logs\nHigh\nNo\nSolution Logs\nHigh\nYes\nAudit Logs - Client API\nAccess\nHigh\nYes\nDatabase Access Logs\nHigh\nNo\n5. Data Retention Policy\n5.1 Retention Timeframes (Default)\nUnless otherwise defined by client contract, Autonomize applies the following default\nretention periods, consistent with compliance standards .:\n. High Criticality Data with PHI: 6 years / 72 months\n. High Criticality Data without PHI: 2 years / 24 months\n. Medium Criticality Logs: 1 year / 12 months",
+                    "metadata": {
+                      "bounding_region": {
+                        "page_number": 3,
+                        "polygon": [
+                          {
+                            "x": 447.0,
+                            "y": 305.0
+                          },
+                          {
+                            "x": 2152.0,
+                            "y": 306.0
+                          },
+                          {
+                            "x": 2152.0,
+                            "y": 363.0
+                          },
+                          {
+                            "x": 447.0,
+                            "y": 359.0
+                          }
+                        ]
+                      },
+                      "char_count": 956,
+                      "chunk_index": 0,
+                      "dataset_id": "45e640ac-6d10-454f-8289-8d43d9904dab",
+                      "document_id": "3ac252a7-e9cc-41d9-a219-fbfc875db163",
+                      "file_hash": "9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01",
+                      "file_path": "kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "index": 0,
+                      "is_active": true,
+                      "page_number": 3,
+                      "source": "uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "strategy": "recursive",
+                      "total_chunks": 2
+                    },
+                    "score": 0.5000388
+                  },
+                  {
+                    "content": "Autonomize\nData Retention, Archival,\nand Purge Policy\nData Retention, Archival,\nand Purge Policy\n1. Purpose\n2. Scope\n3. Guiding Principles\n4. Data Classification and Inventory (Saas implementation)\n5.1 Retention Timeframes (Default)\n6. Data Archival Process\n6.1 Archival Triggers\n6.2 Archival Steps\n6.3 Access Controls\n6.4 Archival Timelines\n7. Data Purge and Deletion Policy\n7.1 Purge Triggers\n7.2 Purge Process\n7.3 Exceptions\n7.4 Purge Timelines\n8. Audit and Compliance Support\n8.1 Audit Access Support\n8.2 Audit Assistance Scope\n9. Roles and Responsibilities\n10. Policy Review and Updates\n11. Project Sign-Off and Client Acknowledgment\n12. Policy Approval",
+                    "metadata": {
+                      "bounding_region": {
+                        "page_number": 1,
+                        "polygon": [
+                          {
+                            "x": 885.0,
+                            "y": 312.0
+                          },
+                          {
+                            "x": 1668.0,
+                            "y": 329.0
+                          },
+                          {
+                            "x": 1667.0,
+                            "y": 454.0
+                          },
+                          {
+                            "x": 885.0,
+                            "y": 449.0
+                          }
+                        ]
+                      },
+                      "char_count": 658,
+                      "chunk_index": 0,
+                      "dataset_id": "45e640ac-6d10-454f-8289-8d43d9904dab",
+                      "document_id": "3ac252a7-e9cc-41d9-a219-fbfc875db163",
+                      "file_hash": "9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01",
+                      "file_path": "kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "index": 0,
+                      "is_active": true,
+                      "page_number": 1,
+                      "source": "uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "strategy": "recursive",
+                      "total_chunks": 1
+                    },
+                    "score": 0.4795099
+                  },
+                  {
+                    "content": " all data processed, stored, transmitted, or logged by Autonomize\nsystems, including but not limited to:\n\u00b7 Clinical and operational data\n\u00b7 Platform metadata, solution, and audit logs\n\u00b7 Al/ML artifacts. Client-provided data sources and downstream extracts\n3. Guiding Principles\nAutonomize follows these core principles for data lifecycle management:\n1. Data Retention Limitation: Retain data only for the minimum period necessary\nto meet business, legal, regulatory, and contractual requirements.\n2. Security by Design: Protect data at rest, in transit, and during archival using\nindustry-standard encryption.\n3. Least Privilege Access: Restrict access to retained or archived data to\nauthorized personnel only.\n4. Client Transparency: Clearly define ownership, retention timelines, and purge\nmechanisms.",
+                    "metadata": {
+                      "bounding_region": {
+                        "page_number": 2,
+                        "polygon": [
+                          {
+                            "x": 295.0,
+                            "y": 531.0
+                          },
+                          {
+                            "x": 2203.0,
+                            "y": 531.0
+                          },
+                          {
+                            "x": 2203.0,
+                            "y": 588.0
+                          },
+                          {
+                            "x": 295.0,
+                            "y": 586.0
+                          }
+                        ]
+                      },
+                      "char_count": 803,
+                      "chunk_index": 1,
+                      "dataset_id": "45e640ac-6d10-454f-8289-8d43d9904dab",
+                      "document_id": "3ac252a7-e9cc-41d9-a219-fbfc875db163",
+                      "file_hash": "9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01",
+                      "file_path": "kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "index": 1,
+                      "is_active": true,
+                      "page_number": 2,
+                      "source": "uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "strategy": "recursive",
+                      "total_chunks": 2
+                    },
+                    "score": 0.4543879
+                  },
+                  {
+                    "content": "11. Project Sign-Off and Client Acknowledgment\nThis policy forms part of the project sign-off and operational readiness documentation.\nBy signing off on the project, the client acknowledges: - Review and acceptance of\nAutonomize's Data Retention, Archival, and Purge Policy - Understanding of default\nretention timelines and purge mechanisms - Agreement that any deviations will be\ndocumented separately\n12. Policy Approval\nApproved By: Autonomize Security & Compliance Team\nEffective Date: TBD\nApplies To: All Clients and Engagements\nReview Cycle: Annual or as required",
+                    "metadata": {
+                      "bounding_region": {
+                        "page_number": 7,
+                        "polygon": [
+                          {
+                            "x": 300.0,
+                            "y": 410.0
+                          },
+                          {
+                            "x": 1750.0,
+                            "y": 411.0
+                          },
+                          {
+                            "x": 1750.0,
+                            "y": 487.0
+                          },
+                          {
+                            "x": 300.0,
+                            "y": 487.0
+                          }
+                        ]
+                      },
+                      "char_count": 570,
+                      "chunk_index": 0,
+                      "dataset_id": "45e640ac-6d10-454f-8289-8d43d9904dab",
+                      "document_id": "3ac252a7-e9cc-41d9-a219-fbfc875db163",
+                      "file_hash": "9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01",
+                      "file_path": "kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "index": 0,
+                      "is_active": true,
+                      "page_number": 7,
+                      "source": "uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "strategy": "recursive",
+                      "total_chunks": 1
+                    },
+                    "score": 0.43325925
+                  },
+                  {
+                    "content": "Medium Criticality Logs\n2 Years\nAudit and Access Logs\n1 Year\n8. Audit and Compliance Support\nAutonomize supports client, regulatory, and third-party audits through a controlled\nprocess.\n8.1 Audit Access Support\n\u00b7 Time-bound, read-only access to required data\n\u00b7 Secure data extracts when direct access is not appropriate\n\u00b7 Redaction or masking applied where feasible\n8.2 Audit Assistance Scope\n\u00b7 Data retrieval from active or archived storage\n\u00b7 Validation of data lineage and integrity\n\u00b7 Evidence of access logs, retention, and purge activities\n9. Roles and Responsibilities\n\u00b7 Autonomize Security & Compliance: Policy enforcement, audits, and exception\nhandling\n\u00b7 Autonomize Operations: Execution of retention, archival, and purge processes\n. Client Stakeholders: Approval of retention deviations and purge instructions\n. Third-Party Auditors: Limited, supervised access as approved\n10. Policy Review and Updates\nThis policy is reviewed at least annually or upon: - Regulatory or compliance changes -",
+                    "metadata": {
+                      "bounding_region": {
+                        "page_number": 6,
+                        "polygon": [
+                          {
+                            "x": 466.0,
+                            "y": 338.0
+                          },
+                          {
+                            "x": 1001.0,
+                            "y": 338.0
+                          },
+                          {
+                            "x": 1001.0,
+                            "y": 395.0
+                          },
+                          {
+                            "x": 465.0,
+                            "y": 393.0
+                          }
+                        ]
+                      },
+                      "char_count": 999,
+                      "chunk_index": 0,
+                      "dataset_id": "45e640ac-6d10-454f-8289-8d43d9904dab",
+                      "document_id": "3ac252a7-e9cc-41d9-a219-fbfc875db163",
+                      "file_hash": "9d983e43abd5bf97a2839379e56e3f998afb5dafa9937d3a083e89133cb1aa01",
+                      "file_path": "kc-4df068e6-4d6b-432d-b337-df98d2a428af/kc-45e640ac-6d10-454f-8289-8d43d9904dab/guideline-documents-blob/uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "index": 0,
+                      "is_active": true,
+                      "page_number": 6,
+                      "source": "uploads/Autonomize \u2013 Data Retention, Archival, And Purge Policy.pdf",
+                      "strategy": "recursive",
+                      "total_chunks": 2
+                    },
+                    "score": 0.4203211
+                  }
+                ],
+                "context": "ds, consistent with compliance standards .:\n. High Criticality Data with PHI: 6 years / 72 months\n. High Criticality Data without PHI: 2 years / 24 months\n. Medium Criticality Logs: 1 year / 12 months. Audit and Access Logs: Minimum of 1 year or per client requirements\n\nHigh Criticality Data\nwithout PHI\n3 years\nMedium Criticality Logs\n1 Year\nAudit and Access Logs\n1 Year\n7. Data Purge and Deletion Policy\n7.1 Purge Triggers\nData is eligible for permanent deletion when:\n\u00b7 Retention period has expired\n\u00b7 Client provides written approval or instruction\n\u00b7 Client contract terminates\n7.2 Purge Process\n1. Pre-Purge Review: Confirmation of eligibility and approvals\n2. Secure Deletion: Data is permanently deleted using industry-accepted secure\ndeletion methods\n3. Verification: Deletion is validated to ensure irrecoverability\n4. Logging: Purge activities are logged for auditability\n7.3 Exceptions\n\u00b7 Data under legal hold or regulatory investigation is excluded from purge\n\u00b7 Exceptions are documented and reviewed periodically\n7.4 Purge Timelines\nData Category\nAutonomize Purge\nClient requirements\nHigh Criticality Data with\nPHI:\n7 years\nHigh Criticality Data\nwithout PHI\n5 years\n\nRetention periods may be adjusted based on:\n\u00b7 Client-specific requirements\n\u00b7 Legal holds\n\u00b7 Active investigations or audits\n6. Data Archival Process\n6.1 Archival Triggers\nData is moved from active systems to archival storage when: - It exceeds defined\nactive-use retention thresholds - It is no longer required for real-time operations -\nClient-approved archival milestones are reached\n6.2 Archival Steps\n1. Identification: Eligible data is identified based on retention rules and metadata.\n2. Validation: Data is validated for completeness and integrity prior to archival.\n3. Encryption: Data is encrypted using 256 bit AES encryption.\n4. Secure Storage: Archived data is stored in secure, access-controlled archival\nstorage - We will use Azure Archive Storage (separate from the Production\nstorage accounts for the archival data) https://learn.microsoft.com/en-\nus/azure/storage/blobs/access-tiers-overview\n5. Indexing: Metadata is retained to enable future retrieval for audits or compliance\n\norage accounts for the archival data) https://learn.microsoft.com/en-\nus/azure/storage/blobs/access-tiers-overview\n5. Indexing: Metadata is retained to enable future retrieval for audits or compliancerequirements.\n6. Autonomize would follow 30 Calendar days SLA to retrieve the requested audit\ntrails, and logs.\n6.3 Access Controls\n\u00b7 Archived data is not accessible to application users\n\u00b7 Access is restricted to authorized Autonomize security or compliance personnel\n. All access events are logged and monitored\n6.4 Archival Timelines\nData Category\nAutonomize archival\nClient requirements\nHigh Criticality Data with\nPHI:\n5 years\n\n1. Purpose\nThis document serves as Autonomize's standard Data Retention, Archival, and Purge\nPolicy and is intended to: Establish a consistent, auditable baseline for data lifecycle\nmanagement across engagements\nClient-specific deviations, if any, will be documented separately as part of contractual\nagreements, Order Forms, or Statements of Work (SOWs).\nThe purpose of this policy is to define Autonomize's approach to data retention,\narchival, purge, and audit support to ensure:\n\u00b7 Protection of sensitive and regulated data (including PHI)\n\u00b7 Compliance with HIPAA, contractual obligations, and client-specific\nrequirements - Operational efficiency and risk reduction\n. Transparency with clients regarding how data is handled throughout its lifecycle\n2. Scope\nThis policy applies to all data processed, stored, transmitted, or logged by Autonomize\nsystems, including but not limited to:\n\u00b7 Clinical and operational data\n\u00b7 Platform metadata, solution, and audit logs\n\u00b7 Al/ML artifacts\n\n5. Audit Readiness: Maintain the ability to support audits through controlled,\ntime-bound data access.\n4. Data Classification and Inventory (Saas implementation)\nThe following data sources are maintained by Autonomize for the Client to fulfill the\nscope of work.\nData Source\nData\nCriticality\nPHI\nIncluded\nFaxes\nHigh\nYes\nEHR Data\nHigh\nYes\nData extracted by\nAutonomize systems\nHigh\nYes\nAzure OpenAl Logs\nHigh\nYes\nAzure Document\nIntelligence Logs\nHigh\nYes\nPlatform Metadata\nMedium\nNo\nPlatform Logs\nHigh\nNo\nSolution Logs\nHigh\nYes\nAudit Logs - Client API\nAccess\nHigh\nYes\nDatabase Access Logs\nHigh\nNo\n5. Data Retention Policy\n5.1 Retention Timeframes (Default)\nUnless otherwise defined by client contract, Autonomize applies the following default\nretention periods, consistent with compliance standards .:\n. High Criticality Data with PHI: 6 years / 72 months\n. High Criticality Data without PHI: 2 years / 24 months\n. Medium Criticality Logs: 1 year / 12 months\n\nAutonomize\nData Retention, Archival,\nand Purge Policy\nData Retention, Archival,\nand Purge Policy\n1. Purpose\n2. Scope\n3. Guiding Principles\n4. Data Classification and Inventory (Saas implementation)\n5.1 Retention Timeframes (Default)\n6. Data Archival Process\n6.1 Archival Triggers\n6.2 Archival Steps\n6.3 Access Controls\n6.4 Archival Timelines\n7. Data Purge and Deletion Policy\n7.1 Purge Triggers\n7.2 Purge Process\n7.3 Exceptions\n7.4 Purge Timelines\n8. Audit and Compliance Support\n8.1 Audit Access Support\n8.2 Audit Assistance Scope\n9. Roles and Responsibilities\n10. Policy Review and Updates\n11. Project Sign-Off and Client Acknowledgment\n12. Policy Approval\n\n all data processed, stored, transmitted, or logged by Autonomize\nsystems, including but not limited to:\n\u00b7 Clinical and operational data\n\u00b7 Platform metadata, solution, and audit logs\n\u00b7 Al/ML artifacts. Client-provided data sources and downstream extracts\n3. Guiding Principles\nAutonomize follows these core principles for data lifecycle management:\n1. Data Retention Limitation: Retain data only for the minimum period necessary\nto meet business, legal, regulatory, and contractual requirements.\n2. Security by Design: Protect data at rest, in transit, and during archival using\nindustry-standard encryption.\n3. Least Privilege Access: Restrict access to retained or archived data to\nauthorized personnel only.\n4. Client Transparency: Clearly define ownership, retention timelines, and purge\nmechanisms.\n\n11. Project Sign-Off and Client Acknowledgment\nThis policy forms part of the project sign-off and operational readiness documentation.\nBy signing off on the project, the client acknowledges: - Review and acceptance of\nAutonomize's Data Retention, Archival, and Purge Policy - Understanding of default\nretention timelines and purge mechanisms - Agreement that any deviations will be\ndocumented separately\n12. Policy Approval\nApproved By: Autonomize Security & Compliance Team\nEffective Date: TBD\nApplies To: All Clients and Engagements\nReview Cycle: Annual or as required\n\nMedium Criticality Logs\n2 Years\nAudit and Access Logs\n1 Year\n8. Audit and Compliance Support\nAutonomize supports client, regulatory, and third-party audits through a controlled\nprocess.\n8.1 Audit Access Support\n\u00b7 Time-bound, read-only access to required data\n\u00b7 Secure data extracts when direct access is not appropriate\n\u00b7 Redaction or masking applied where feasible\n8.2 Audit Assistance Scope\n\u00b7 Data retrieval from active or archived storage\n\u00b7 Validation of data lineage and integrity\n\u00b7 Evidence of access logs, retention, and purge activities\n9. Roles and Responsibilities\n\u00b7 Autonomize Security & Compliance: Policy enforcement, audits, and exception\nhandling\n\u00b7 Autonomize Operations: Execution of retention, archival, and purge processes\n. Client Stakeholders: Approval of retention deviations and purge instructions\n. Third-Party Auditors: Limited, supervised access as approved\n10. Policy Review and Updates\nThis policy is reviewed at least annually or upon: - Regulatory or compliance changes -",
+                "count": 10
+              },
+              "error": null,
+              "metadata": {
+                "component_id": "26bea2c0-259d-4db2-9a22-e3f827594132",
+                "execution_time": "measured_at_runtime",
+                "component_status": "healthy"
+              }
+            },
+            "tool_call_id": "call_f3PE5yuWV6hwyIahiswtMucV",
+            "tool_kind": null,
+            "metadata": null,
+            "timestamp": "2026-06-24T21:59:06.406954Z",
+            "outcome": "success",
+            "part_kind": "tool-return"
+          }
+        ],
+        "timestamp": "2026-06-24T21:59:06.624997Z",
+        "instructions": "You are a Compliance and security policy expert. Your tone should be professional.\n\nYou are a compliance and security policy expert. You answer questions about company guidelines, policies, and procedures by searching the organization's guideline document knowledge base.\n## Workflow 1. Analyze the user's question to identify relevant policy areas. 2. Use the Knowledge Retrieval tool to retrieve relevant guideline sections. 3. Synthesize a clear, accurate answer grounded ONLY in the retrieved content.\n## Citation Rules - ALWAYS cite the specific source document and section for every claim. - Format citations as: [Source: <document name>, <section/page>] - If multiple sections support an answer, cite all of them. - If retrieved content does not contain enough information, say so explicitly.\n  Do NOT fabricate or infer policy details.\n\n## Answer Format - Lead with a direct yes/no or summary answer. - Follow with supporting details and policy references. - Use bullet points for multi-part answers. - Quote exact policy language when relevant.\n## Rules - ONLY use information from retrieved guideline content \u00e2\u20ac\u201d NO HALLUCINATION. - If the question is outside the scope of available guidelines, state that clearly. - Be precise with policy language \u00e2\u20ac\u201d do not paraphrase in ways that change meaning.\n\n\nYou are an AI Agent designed to respond to user queries in the most optimal, clear, and accurate manner.\n\nGeneral Behavior:\n- Provide concise, structured, and correct responses.\n- Ask clarifying questions only when necessary.\n- Do not add unnecessary information.\n- Be transparent about limitations.\n\nAlways aim for maximum usefulness with minimal verbosity.\n\nConnected External Tools:\nThe following external tools are specifically connected to you for this session:\n- Knowledge Retrieval: Search compliance guideline documents from Knowledge Center\n\nWhen Asked About Connected or External Tools:\n- Refer ONLY to the tools listed in the \"Connected External Tools\" section above.\n- Do not report tools beyond those explicitly listed there.\n- Do not infer, assume, or fabricate tools based on your training knowledge or function schemas.\n- Use EXACTLY the name and description listed \u2014 do NOT expand, elaborate, or supplement with details from function signatures, docstrings, or API schemas.\n- Do NOT enumerate individual sub-capabilities, operations, or functions of a tool \u2014 report only the top-level name and description as provided.\n- Clearly distinguish between your native capabilities (reasoning, writing, coding, analysis) and these externally connected tools.\n\nWhen Asked About Your Capabilities:\n- List your core capabilities (reasoning, writing, coding, analysis, etc.).\n- Then list ONLY the additional capabilities enabled by the externally connected tools listed above, using exactly the provided descriptions.\n- Never fabricate, infer, or assume the existence of tools not listed in the Connected External Tools section.\n- Never expand tool descriptions beyond what is explicitly listed in the Connected External Tools section.",
+        "kind": "request",
+        "run_id": "019efba4-d886-7040-b6f0-3a81bf59e5a9",
+        "conversation_id": "019efba4-d886-7040-b6f0-3a8013b71d91",
+        "metadata": null
+      },
+      {
+        "parts": [
+          {
+            "content": "Summary answer: The data retention period depends on data type and criticality. Default retention periods are:\n\n- High Criticality Data with PHI: 6 years (72 months)\n- High Criticality Data without PHI: 2 years (24 months)\n- Medium Criticality Logs: 1 year (12 months)\n- Audit and Access Logs: Minimum of 1 year or per client requirements\n\nSupporting details and policy references:\n- \"Unless otherwise defined by client contract, Autonomize applies the following default retention periods, consistent with compliance standards: High Criticality Data with PHI: 6 years / 72 months; High Criticality Data without PHI: 2 years / 24 months; Medium Criticality Logs: 1 year / 12 months. Audit and Access Logs: Minimum of 1 year or per client requirements.\" [Source: Autonomize \u2013 Data Retention, Archival, And Purge Policy, Section 5.1 Retention Timeframes (Default), page 3]\n- Retention periods may be adjusted based on client-specific requirements, legal holds, or active investigations/audits. [Source: Autonomize \u2013 Data Retention, Archival, And Purge Policy, page 4]\n\nIf you need retention periods for a specific data category or have client-specific requirements, please clarify.",
+            "id": null,
+            "provider_name": null,
+            "provider_details": null,
+            "part_kind": "text"
+          }
+        ],
+        "usage": {
+          "input_tokens": 7713,
+          "cache_write_tokens": 0,
+          "cache_read_tokens": 0,
+          "output_tokens": 273,
+          "input_audio_tokens": 0,
+          "cache_audio_read_tokens": 0,
+          "output_audio_tokens": 0,
+          "details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "model_name": "gpt-4.1-2025-04-14",
+        "timestamp": "2026-06-24T21:59:07.413757Z",
+        "kind": "response",
+        "provider_name": "azure",
+        "provider_url": "https://platform-dev-1017.openai.azure.com/openai/",
+        "provider_details": {
+          "finish_reason": "stop"
+        },
+        "provider_response_id": "chatcmpl-DuPudxxYHzDs4NksX6Qrh4sLre0X4",
+        "finish_reason": "stop",
+        "run_id": "019efba4-d886-7040-b6f0-3a81bf59e5a9",
+        "conversation_id": "019efba4-d886-7040-b6f0-3a8013b71d91",
+        "metadata": null,
+        "state": "complete"
+      }
+    ],
+    "messages_ref": null,
+    "agent_name": "Compliance Guidelines Chatbot",
+    "model": "azure_openai:gpt-4.1",
+    "success": true,
+    "error": null,
+    "verification_attempts": 0,
+    "verification_passed": true,
+    "tool_summary": {
+      "total_tool_calls": 1,
+      "tools": {
+        "use_Knowledge_Retrieval_compliance_guidelines": 1
+      },
+      "system_tools": []
+    }
+  },
+  "execution_id": "984f357e-d3ab-42ae-a7c4-e6faa5d5c867",
+  "workflow_name": "",
+  "status": "started",
+  "error": null
+}

@@ -1,11 +1,52 @@
-INFO:     Started server process [17736]
+INFO:     Started server process [31484]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     127.0.0.1:53677 - "GET /api/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64584 - "GET /api/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49287 - "GET / HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:49287 - "GET / HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:49287 - "GET /favicon.ico HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:65369 - "GET /api/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57095 - "POST /api/ingest HTTP/1.1" 200 OK
+INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)
+INFO:     127.0.0.1:61418 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61412 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61412 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60919 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61412 - "POST /api/chat HTTP/1.1" 502 Bad Gateway
+INFO:     127.0.0.1:61060 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61060 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62762 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49301 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58738 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54306 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54306 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49967 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49967 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65286 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49967 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49967 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55940 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49344 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49344 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55940 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49218 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49229 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49229 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57220 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49229 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49229 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50061 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60331 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60331 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62218 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60331 - "OPTIONS /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60331 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50585 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50585 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50585 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61689 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57545 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57545 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53041 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49920 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49920 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56039 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60554 - "OPTIONS /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60554 - "POST /api/chat HTTP/1.1" 502 Bad Gateway
+INFO:     127.0.0.1:50401 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50401 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58286 - "GET /api/documents/uploads/Autonomize%20%E2%80%93%20Data%20Retention%2C%20Archival%2C%20And%20Purge%20Policy.pdf HTTP/1.1" 200 OK
