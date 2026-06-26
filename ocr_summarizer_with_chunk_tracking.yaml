@@ -1,0 +1,231 @@
+# Workflow Specification
+# Generated from AI Studio v2
+# Version: 1.0.3
+
+name: OCR Summarizer with Chunk Tracking
+description: Downloads OCR JSON from blob storage and summarizes with chunk ID preservation
+version: 1.0.3
+category: healthcare
+workflow_type: graph
+tags:
+  - ocr
+  - summarization
+  - chunk-tracking
+  - appeals
+inputs:
+  type: object
+  properties:
+    member_id:
+      type: string
+      description: Member/Patient ID
+    file_hash:
+      type: string
+      description: MD5 hash of the document
+  required:
+    - member_id
+    - file_hash
+steps:
+  - id: download_ocr_file
+    name: Download OCR File from Blob Storage
+    type: tool
+    tool:
+      type: connection
+      connection_name: null
+      tool_name: download_file
+    input:
+      container_name: appeals-uploads
+      blob_name: "{{ inputs.member_id }}/{{ inputs.file_hash }}_ocr.json"
+      toolSourceConfig:
+        toolId: azure_blob
+        toolName: azure_blob
+      member_id: "{{context.member_id}}"
+      file_hash: "{{context.file_hash}}"
+    config:
+      output_key: download_ocr_file_result
+  - id: summarize_with_chunks
+    name: Summarize OCR with Chunk IDs
+    type: intelligence
+    component: llm_agent
+    agent_name: SummarizeOCRwithChunkIDs
+    dependencies:
+      - download_ocr_file
+    agent_config:
+      name: Summarize OCR with Chunk IDs
+      description: Extracts and categorizes OCR text while preserving chunk IDs
+      persona:
+        role: Healthcare Document Analyzer
+        tone: professional
+        system_prompt: >-
+          You are a healthcare document analyst specializing in appeals and clinical documentation.
+
+
+          Your task: Analyze the provided OCR data and extract information into the specified categories.
+
+
+          CRITICAL REQUIREMENT: For EVERY text excerpt you include, you MUST cite the chunk_id where it was found.
+
+          Use format: [chunk_id: XXXXX] followed by the text.
+
+
+          Categories to extract and summarize:
+
+
+          1. **Key Stakeholders**
+             - Provider names/IDs
+             - Insurance company
+             - Patient/Member information
+
+          2. **Case Timeline**
+             - Chronological sequence of events
+             - When did case start, key milestones
+
+          3. **Dates**
+             - Service dates
+             - Decision dates
+             - Appeal dates
+             - Any other significant dates
+
+          4. **Patient Demographics**
+             - Age, DOB
+             - Gender
+             - Location/Address
+             - Employer
+             - Any identifying information
+
+          5. **Medical Presentation and Clinical Narrative**
+             - Initial symptoms
+             - Chief complaint
+             - How the condition presented
+             - Patient's description of problem
+
+          6. **Clinical Course**
+             - How condition progressed
+             - Treatment response
+             - Changes in status
+             - Complications
+
+          7. **Comprehensive Medical History**
+             - Past medical history (PMH)
+             - Medications
+             - Allergies
+             - Prior surgeries
+             - Family history
+
+          Format your response as:
+
+
+          ## [CATEGORY_NAME]
+
+          - [chunk_id: XXXXX] Text excerpt from that chunk
+
+          - [chunk_id: YYYYY] Another relevant text
+
+
+          Ensure EVERY line item includes its chunk_id. If no information found for a category, write "No information
+          found in OCR."
+        prompt_ref: null
+      llm_config:
+        provider: azure_openai
+        model: gpt-4
+        temperature: 0.3
+        max_tokens: 4000
+        top_p: 1
+      tools:
+        - type: connector
+          name: azure_blob_toolset
+          description: Azure Blob Storage for document retrieval
+          config:
+            connector: azure_blob
+            connection_name: null
+            tool_mode: true
+            tools: all
+            preconfigured_values: {}
+      knowledge: []
+      execution_strategy: react
+      goals: []
+      kpis: []
+      max_steps: 25
+      streaming: true
+      attachments: []
+      category: general
+      tags: []
+      verification: null
+      memory:
+        type: conversation_buffer
+        config: {}
+        enabled: true
+        window_size: 5
+    config:
+      outputs: []
+      description: LLM agent for OCR summarization with chunk tracking
+      temperature: 0.3
+      max_tokens: 4000
+      streaming: true
+      user_message: |
+        Please analyze the following OCR data and provide a structured summary.
+
+        IMPORTANT: For EVERY text excerpt, include the chunk_id in format [chunk_id: XXXXX]
+
+        OCR Data:
+        {{ steps.download_ocr_file.output }}
+      output_schema: null
+      output_model: null
+      use_pydantic_ai: true
+      memory_integration: true
+      response_content: ""
+      file_hash: "{{ inputs.file_hash }}"
+      member_id: "{{ inputs.member_id }}"
+      context: "{{steps.download_ocr_file.output}}"
+  - id: output_summary
+    name: Output Summary
+    type: output
+    component: chat_output
+    dependencies:
+      - summarize_with_chunks
+    config:
+      outputs: []
+      description: Formatted output of categorized OCR summary with chunk IDs
+      response: "{{ steps.summarize_with_chunks.output }}"
+      format: text
+      include_metadata: false
+      sanitize_output: true
+      max_length: 50000
+      enable_markdown: true
+      include_timestamps: false
+      include_citations: false
+ui_metadata:
+  positions:
+    input_member_id:
+      x: 50
+      "y": 50
+    input_file_hash:
+      x: 50
+      "y": 500
+    download_ocr_file:
+      x: 596
+      "y": 725
+    summarize_with_chunks:
+      x: 1142
+      "y": 500
+    output_summary:
+      x: 1142
+      "y": 950
+    summarize_with_chunks_tool_0:
+      x: 50
+      "y": 950
+  canvas_input_edges:
+    - source: input_member_id
+      target: download_ocr_file
+      sourceHandle: output
+      targetHandle: blob_name
+    - source: input_file_hash
+      target: download_ocr_file
+      sourceHandle: output
+      targetHandle: blob_name
+    - source: summarize_with_chunks_tool_0
+      target: summarize_with_chunks
+      sourceHandle: toolset
+      targetHandle: tools
+  tool_node_ids:
+    summarize_with_chunks:
+      - summarize_with_chunks_tool_0

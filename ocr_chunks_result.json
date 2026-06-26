@@ -1,0 +1,38 @@
+{
+  "id": "a445c9ed-fedd-4c25-995e-e8756561718c",
+  "resource_id": "1bf5bfc9-75ee-4dd1-a997-5349e1b05d08",
+  "resource_type": "workflow",
+  "status": "completed",
+  "inputs": {
+    "message": "",
+    "context": {
+      "organization_id": "16a74ae7-32e9-46e7-9250-2a307dfd6252",
+      "project_id": "4df068e6-4d6b-432d-b337-df98d2a428af",
+      "user_id": "747f5fec-a666-4b82-8db1-4dd5f5e62abb"
+    },
+    "files": null,
+    "session_id": null
+  },
+  "outputs": {
+    "uri": "data://intermediate/16a74ae7-32e9-46e7-9250-2a307dfd6252/graph-OCR Test - Extract Chunks v2-a445c9ed-fedd-4c25-995e-e8756561718c/e800d26f-11de-4979-b360-51d35e073013",
+    "name": "result.json",
+    "type": "application/json",
+    "size_bytes": 181979,
+    "metadata": {
+      "storage_uri": "az://ai-studio-integration/intermediate/16a74ae7-32e9-46e7-9250-2a307dfd6252/graph-OCR Test - Extract Chunks v2-a445c9ed-fedd-4c25-995e-e8756561718c/e800d26f-11de-4979-b360-51d35e073013.json"
+    },
+    "content_hash": "sha256:9b06b0d34a8910e6694e41adc1388bbbca448e023715bd65daf48010d773b0f9",
+    "ttl_seconds": 3600
+  },
+  "error": null,
+  "started_at": "2026-06-25T17:43:27.408320",
+  "completed_at": "2026-06-25T17:43:34.648709",
+  "duration_seconds": 7.240389,
+  "input_tokens": null,
+  "output_tokens": null,
+  "total_cost": null,
+  "otel_trace_id": "b8ee5bfa-10a0-4d3f-8d0e-f6555ce2f060",
+  "created_by": "747f5fec-a666-4b82-8db1-4dd5f5e62abb",
+  "created_by_type": null,
+  "created_at": "2026-06-25T17:43:27.408420"
+}

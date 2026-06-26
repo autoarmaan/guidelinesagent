@@ -1,0 +1,205 @@
+# Workflow Specification
+# Generated from AI Studio v2
+# Version: 1.1.0
+
+name: Document Ingestion & OCR Processing v2
+description: >-
+  Ingests documents via Azure Document Intelligence, extracts OCR with page dimensions and bounding boxes, and uploads
+  raw OCR data to blob storage. Returns OCR results for downstream classification.
+version: 1.1.0
+category: healthcare
+workflow_type: graph
+tags:
+  - document-ingestion
+  - ocr
+  - azure-document-intelligence
+inputs:
+  type: object
+  properties:
+    file:
+      type: string
+      format: uri
+      description: Blob URL to the document (https:// SAS URL)
+    file_hash:
+      type: string
+      description: MD5 hash of the file (calculated by app)
+    container_name:
+      type: string
+      description: Blob storage container name
+  required:
+    - file
+    - file_hash
+    - container_name
+steps:
+  - id: node_doc_intel
+    name: "Azure Document Intelligence: extract_layout_with_chunks"
+    type: tool
+    tool:
+      type: connection
+      connection_name: null
+      tool_name: extract_layout_with_chunks
+    input:
+      document: "{{context.file}}"
+      file_hash: "{{context.file_hash}}"
+      toolSourceConfig:
+        toolId: azure_doc_intel
+        toolName: azure_doc_intel
+    config:
+      output_key: node_doc_intel_result
+  - id: extract_member_id
+    name: Extract Member ID from OCR
+    type: intelligence
+    component: agent
+    agent_name: ExtractMemberIDfromOCR
+    dependencies:
+      - node_doc_intel
+    agent_config:
+      name: Extract Member ID from OCR
+      description: Extracts member ID from OCR text
+      persona:
+        role: Document Parser
+        tone: professional
+        system_prompt: >-
+          You are a document parser. Extract the member/patient ID from the OCR text provided.
+
+          Look for any ID labeled as: "Member ID", "Member #", "MBI", "Patient ID", "Subscriber ID", "ID Number", or
+          similar.
+
+          IDs can be numeric, alphanumeric, or hyphenated (e.g. MCH-123456, 1EG4-TE5-MK72, 123456789).
+
+          Return ONLY valid JSON: {"member_id": "<extracted value>", "extraction_source": "ocr_text_parsing"}
+
+          If not found, return: {"member_id": "UNKNOWN", "extraction_source": "ocr_text_parsing"}
+        prompt_ref: null
+      llm_config:
+        provider: azure_openai
+        model: gpt-4.1
+        temperature: 0
+        max_tokens: 200
+      tools: []
+      knowledge: []
+      execution_strategy: react
+      goals: []
+      kpis: []
+      max_steps: 25
+      streaming: true
+      attachments: []
+      category: general
+      tags: []
+      verification: null
+      memory: null
+      output_schema:
+        type: object
+        properties:
+          member_id:
+            type: string
+          extraction_source:
+            type: string
+    input:
+      ocr_text: "{{steps.node_doc_intel.output | json}}"
+    config:
+      context: "{{steps.node_doc_intel.output}}"
+  - id: upload_ocr_extraction_blob
+    name: Upload OCR Extraction to Blob
+    type: tool
+    dependencies:
+      - node_doc_intel
+      - extract_member_id
+    tool:
+      type: connection
+      connection_name: null
+      tool_name: upload_file
+    input:
+      container_name: "{{context.container_name}}"
+      blob_name: "{{steps.extract_member_id.output.member_id}}/{{context.file_hash}}_ocr.json"
+      content: "{{steps.node_doc_intel.output | json | b64encode}}"
+    config:
+      output_key: upload_ocr_extraction_blob_result
+  - id: upload_ocr_text_blob
+    name: Upload OCR Text to Blob
+    type: tool
+    dependencies:
+      - node_doc_intel
+      - extract_member_id
+    tool:
+      type: connection
+      connection_name: null
+      tool_name: upload_file
+    input:
+      container_name: "{{context.container_name}}"
+      blob_name: "{{steps.extract_member_id.output.member_id}}/{{context.file_hash}}_ocr_text.json"
+      content: "{{steps.node_doc_intel.output.content | b64encode}}"
+    config:
+      output_key: upload_ocr_text_blob_result
+  - id: return_ocr_data
+    name: Return OCR Data
+    type: output
+    component: chat_output
+    dependencies:
+      - upload_ocr_extraction_blob
+      - upload_ocr_text_blob
+      - extract_member_id
+    config:
+      outputs: []
+      description: Returns OCR extraction data and metadata with member ID
+      response: |
+        {
+          "success": true,
+          "member_id": "{{steps.extract_member_id.output.member_id}}",
+          "ocr_data": {{steps.node_doc_intel.output | json}},
+          "file_hash": "{{context.file_hash}}",
+          "container_name": "{{context.container_name}}",
+          "ocr_upload_path": "{{steps.extract_member_id.output.member_id}}/{{context.file_hash}}_ocr.json",
+          "ocr_text_path": "{{steps.extract_member_id.output.member_id}}/{{context.file_hash}}_ocr_text.json",
+          "extraction_timestamp": "{{workflow.execution_timestamp}}"
+        }
+      format: json
+      include_metadata: false
+      sanitize_output: false
+      max_length: 100000
+      enable_markdown: false
+      include_timestamps: false
+      include_citations: false
+ui_metadata:
+  positions:
+    input_file:
+      x: 50
+      "y": 50
+    input_file_hash:
+      x: 50
+      "y": 500
+    input_container_name:
+      x: 50
+      "y": 950
+    node_doc_intel:
+      x: 596
+      "y": 725
+    extract_member_id:
+      x: 1142
+      "y": 950
+    upload_ocr_extraction_blob:
+      x: 860
+      "y": -60
+    upload_ocr_text_blob:
+      x: 1480
+      "y": 100
+    return_ocr_data:
+      x: 1142
+      "y": 1400
+  canvas_input_edges:
+    - source: input_file
+      target: node_doc_intel
+      sourceHandle: output
+      targetHandle: document
+    - source: input_file_hash
+      target: node_doc_intel
+      sourceHandle: output
+      targetHandle: file_hash
+    - source: input_container_name
+      target: upload_ocr_extraction_blob
+      sourceHandle: output
+      targetHandle: container_name
+    - source: input_container_name
+      target: upload_ocr_text_blob
+      sourceHandle: output
+      targetHandle: container_name

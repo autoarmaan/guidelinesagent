@@ -1,0 +1,17 @@
+{
+  "output": {
+    "uri": "data://intermediate/16a74ae7-32e9-46e7-9250-2a307dfd6252/graph-OCR Test - Extract Chunks v2-a445c9ed-fedd-4c25-995e-e8756561718c/e800d26f-11de-4979-b360-51d35e073013",
+    "name": "result.json",
+    "type": "application/json",
+    "size_bytes": 181979,
+    "metadata": {
+      "storage_uri": "az://ai-studio-integration/intermediate/16a74ae7-32e9-46e7-9250-2a307dfd6252/graph-OCR Test - Extract Chunks v2-a445c9ed-fedd-4c25-995e-e8756561718c/e800d26f-11de-4979-b360-51d35e073013.json"
+    },
+    "content_hash": "sha256:9b06b0d34a8910e6694e41adc1388bbbca448e023715bd65daf48010d773b0f9",
+    "ttl_seconds": 3600
+  },
+  "execution_id": "a445c9ed-fedd-4c25-995e-e8756561718c",
+  "workflow_name": "",
+  "status": "started",
+  "error": null
+}

@@ -1,0 +1,323 @@
+# Workflow Specification
+# Generated from AI Studio v2
+# Version: 1.0.3
+
+name: OCR Summarizer with Categorical Output
+description: Agent-driven OCR summarization with chunk ID preservation
+version: 1.0.3
+category: healthcare
+workflow_type: graph
+tags:
+  - ocr
+  - summarization
+  - chunk-tracking
+  - appeals
+inputs:
+  type: object
+  properties:
+    member_id:
+      type: string
+      description: Member/Patient ID
+    file_hash:
+      type: string
+      description: MD5 hash of the document
+  required:
+    - member_id
+    - file_hash
+steps:
+  - id: summarize_with_chunks
+    name: OCR Summarizer Agent
+    type: intelligence
+    component: llm_agent
+    agent_name: OCRSummarizerAgent
+    agent_config:
+      name: OCR Summarizer Agent
+      description: Downloads OCR from blob and summarizes with chunk ID preservation
+      persona:
+        role: Healthcare Document Analyzer
+        tone: professional
+        system_prompt: >-
+          You are a healthcare document analyst specializing in appeals and clinical documentation.
+
+          Your task:
+
+
+          Load the OCR JSON file from <member_id>/<file_hash>_ocr_text.json using the provided member_id and file_hash
+
+          Parse the OCR data to extract every text field along with its chunk_id and page number
+
+          Organize all extracted text into the categories below, grouped by page
+
+
+          CRITICAL REQUIREMENT:
+
+
+          For EVERY text excerpt you include, you MUST cite the chunk_id where it was found
+
+          Format: [chunk_id: XXXXX] followed by the text
+
+          This is MANDATORY for traceability back to source document sections
+
+          Each excerpt must also be placed under the page it appears on (use the page field from the OCR JSON; if a
+          chunk has no page field, assign it to page 0 / "unknown")
+
+
+          CATEGORIES TO EXTRACT (per page):
+
+
+          Medical Conditions — diagnoses, conditions, problems, clinical impressions
+
+          Medications — drug names, dosages, frequencies, routes, prescriptions
+
+          Tests & Procedures — labs, imaging, diagnostic tests, surgical/clinical procedures
+
+          Anatomy — body parts, anatomical structures, organ systems referenced
+
+          Provider Notes — progress notes, clinical observations, provider commentary
+
+          Discharge Summary — discharge instructions, disposition, summary-of-stay content
+
+          Specialist Consultations — consult notes, specialist findings, referral content
+
+          History & Physical — H&P content, exam findings, review of systems, presenting history
+
+          Emergency Room — ER/ED triage, presentation, and treatment content
+
+
+          (PHI is intentionally excluded — do not extract or output a PHI category.)
+
+          OUTPUT FORMAT (MUST RETURN AS JSON):
+
+          json{
+            "member_id": "string",
+            "file_hash": "string",
+            "pages": [
+              {
+                "page_number": 1,
+                "categories": {
+                  "medical_conditions": [
+                    {"chunk_id": "XXXXX", "text": "excerpt text"}
+                  ],
+                  "medications": [],
+                  "tests_and_procedures": [],
+                  "anatomy": [],
+                  "provider_notes": [],
+                  "discharge_summary": [],
+                  "specialist_consultations": [],
+                  "history_and_physical": [],
+                  "emergency_room": []
+                }
+              }
+            ]
+          }
+
+          REQUIREMENTS:
+
+
+          Every text excerpt must include its chunk_id as a string, preserving the original format from the OCR file
+          (e.g., chunk_0, chunk_1)
+
+          Output must be grouped by page; one object per page in the pages array, ordered by page_number ascending
+
+          Within each page, every category key must be present; use an empty array [] if no content for that category on
+          that page
+
+          A given excerpt may appear under more than one category if it genuinely fits multiple
+
+          Return ONLY valid JSON — no markdown, no commentary outside the JSON
+        prompt_ref: null
+      llm_config:
+        provider: azure_openai
+        model: gpt-5.4
+        temperature: 0.3
+        max_tokens: 4000
+        top_p: 1
+      tools:
+        - type: connector
+          name: azure_blob_toolset
+          description: Download files from Azure Blob Storage
+          config:
+            connector: azure_blob
+            connection_name: null
+            tool_mode: true
+            tools: all
+            preconfigured_values: {}
+      knowledge: []
+      execution_strategy: react
+      goals: []
+      kpis: []
+      max_steps: 25
+      streaming: true
+      attachments: []
+      category: general
+      tags: []
+      verification: null
+      memory:
+        type: conversation_buffer
+        config: {}
+        enabled: true
+        window_size: 5
+    config:
+      outputs: []
+      description: Agent-driven OCR summarization
+      temperature: 0.3
+      max_tokens: 4000
+      streaming: true
+      user_message: >
+        Please summarize the OCR document and return the response as JSON.
+
+
+        To do this:
+
+        1. Download the file from blob storage:
+           - Container: appeals-uploads
+           - Blob name (EXACT FORMAT): {{ inputs.member_id }}/{{ inputs.file_hash }}_ocr.json
+           - Use the download_file tool with blob_name parameter set to: {{ inputs.member_id }}/{{ inputs.file_hash }}_ocr.json
+        2. Parse the OCR JSON and extract chunks with their chunk_ids
+
+        3. Categorize and summarize as instructed, with chunk_id for EVERY text excerpt
+
+        4. Return response as a JSON object (not markdown)
+
+
+        Input Parameters:
+
+        - Member ID: {{ inputs.member_id }}
+
+        - File Hash: {{ inputs.file_hash }}
+
+        - Complete blob_name: {{ inputs.member_id }}/{{ inputs.file_hash }}_ocr.json
+
+
+        IMPORTANT: Return ONLY JSON format, no markdown or additional text. Each category should be an array of objects
+        with chunk_id and text properties.
+      output_schema: |
+        {
+          "type": "object",
+          "properties": {
+            "member_id": {"type": "string"},
+            "file_hash": {"type": "string"},
+            "summary": {
+              "type": "object",
+              "properties": {
+                "key_stakeholders": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "chunk_id": {"type": "string"},
+                      "text": {"type": "string"}
+                    }
+                  }
+                },
+                "case_timeline": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "chunk_id": {"type": "string"},
+                      "text": {"type": "string"}
+                    }
+                  }
+                },
+                "dates": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "chunk_id": {"type": "string"},
+                      "text": {"type": "string"}
+                    }
+                  }
+                },
+                "patient_demographics": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "chunk_id": {"type": "string"},
+                      "text": {"type": "string"}
+                    }
+                  }
+                },
+                "medical_presentation_clinical_narrative": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "chunk_id": {"type": "string"},
+                      "text": {"type": "string"}
+                    }
+                  }
+                },
+                "clinical_course": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "chunk_id": {"type": "string"},
+                      "text": {"type": "string"}
+                    }
+                  }
+                },
+                "comprehensive_medical_history": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "chunk_id": {"type": "string"},
+                      "text": {"type": "string"}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      output_model: null
+      use_pydantic_ai: true
+      memory_integration: true
+      response_content: ""
+      member_id: "{{context.member_id}}"
+      file_hash: "{{context.file_hash}}"
+  - id: node_98742036
+    name: Output
+    type: output
+    dependencies:
+      - summarize_with_chunks
+    config:
+      data:
+        result: "{{steps.summarize_with_chunks.output}}"
+ui_metadata:
+  positions:
+    input_member_id:
+      x: 50
+      "y": 50
+    input_file_hash:
+      x: 50
+      "y": 500
+    summarize_with_chunks:
+      x: 596
+      "y": 725
+    node_98742036:
+      x: 1142
+      "y": 725
+    summarize_with_chunks_tool_0:
+      x: 60
+      "y": 1100
+  canvas_input_edges:
+    - source: input_member_id
+      target: summarize_with_chunks
+      sourceHandle: output
+      targetHandle: context
+    - source: input_file_hash
+      target: summarize_with_chunks
+      sourceHandle: output
+      targetHandle: context
+    - source: summarize_with_chunks_tool_0
+      target: summarize_with_chunks
+      sourceHandle: toolset
+      targetHandle: tools
+  tool_node_ids:
+    summarize_with_chunks:
+      - summarize_with_chunks_tool_0
